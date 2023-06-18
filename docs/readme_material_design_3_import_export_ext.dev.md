@@ -18,3 +18,14 @@
 
 # Links
 [Minifier](https://www.toptal.com/developers/javascript-minifier)
+* private project with more notes:
+  * [material3-theme-builder-helper-ext](..%2F..%2Fmaterial3-theme-builder-helper-ext)
+
+## BrowserStack automation puppeteer ci/cd
+* BROWSERSTACK_ACCESS_KEY
+* https://www.browserstack.com/
+  * https://www.browserstack.com/docs/automate/puppeteer
+  * chai vs mocha?
+  * https://automate.browserstack.com/dashboard/v2/builds/4b2df68f639c826c54d5e783aa1af13e3e2172f6
+  * https://automate.browserstack.com/dashboard/v2/public-build/dWxIUFBMNG9hOFI3ZkFNano4bERUd1dvTGJPTmZBMlViVFp1ZjM3M1NFVlVISmxTcEQ3QzB2bmIrLzBEcGUvSE11dmJSZTRKUy9ZcjM1dkFLUjZRT0E9PS0tdFY4N3VNWmdxcmZwNW9DVmswc0lkdz09--c2a743318608e93d35f686e906d4edefb5ad04d0
+* 

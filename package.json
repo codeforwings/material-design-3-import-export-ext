@@ -2,7 +2,7 @@
   "name": "material-design-3-import-export-ext",
   "version": "0.1.0",
   "description": "Basic Material Design 3 Import Export Utility",
-  "main": "src/index.js",
+  "main": "src/index.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -16,9 +16,11 @@
   "author": "hychan48",
   "license": "GPLv3",
   "devDependencies": {
-    "mocha": "^10.2.0"
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
+    "puppeteer-core": "^20.7.2"
   },
   "dependencies": {
-    "puppeteer-core": "^20.7.2"
+    "dotenv": "^16.3.1"
   }
 }
