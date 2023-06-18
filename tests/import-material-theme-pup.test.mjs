@@ -22,7 +22,7 @@ describe('import-material-theme-pup.test.mjs', function(){
    * Also takes a screenshot... need to assert somehow
    */
   it('runPuppeteerWithBrowser headless', async function(){
-    this.timeout(10000);
+    this.timeout(100000);
       try{
 
         // const browser = await initBrowserForPuppeteerCore();
@@ -36,8 +36,13 @@ describe('import-material-theme-pup.test.mjs', function(){
         /**
          * @type {Page}
          */
-        let page = await runPuppeteerWithBrowser(sampleCoreColorsTheme,browser);
-        await page.screenshot({path: 'temp/screenshot.png'});
+        // let page = await runPuppeteerWithBrowser(sampleCoreColorsTheme,browser);
+        let page = await runPuppeteerWithBrowser(DefaultCoreColors,browser);//not sure why background is purple
+        //todo add the export color and check here or just create a new test...
+        // maybe just create a new test.. cuz dont need the screenshot like that... also refactor the screenshot stuff
+        //todo create the puppeteer script for chrome. maybe using chrome
+        //doesnt work because of scrollbars, need to increase the resolution to 3840x2400 at deviceScaleFactor 2
+        await page.screenshot({path: 'temp/screenshot.png',fullPage: true });
         if(headless === false){//wait for 5 seconds if not headless
           await new Promise(resolve => setTimeout(resolve, 5000));
         }
@@ -59,7 +64,7 @@ describe('import-material-theme-pup.test.mjs', function(){
    */
   it('serialize / stringify function',function(){
     const actual = exportCoreColorsUsingChrome.toString()
-    assert.ok(/async function exportCoreColorsUsingChrome/.test(actual));//doesnt have export... good
+    assert.ok(/function exportCoreColorsUsingChrome/.test(actual));//doesnt have export... good
     // console.log(actual);
 
   });

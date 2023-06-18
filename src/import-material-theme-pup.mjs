@@ -25,10 +25,27 @@ export async function runPuppeteerWithBrowser(coreColors,browser,timeout=5000){
   page.setDefaultTimeout(timeout);
   {
     const targetPage = page;
-    await targetPage.setViewport({
-      width: 1920,
-      height: 937
-    })
+    // await targetPage.setViewport({
+    //   width: 1920,
+    //   height: 937
+    // })
+    // https://en.wikipedia.org/wiki/Display_aspect_ratio
+    //16:9
+    // await page.setViewport({
+    //   width: 4096,
+    //   height: 2160,
+    //   deviceScaleFactor: 1,
+    //   // deviceScaleFactor: 2,//higher density? honesty looks the same defn looks better
+    //   //when zoomed
+    // });
+    //16:10 i think... yep mac is 16:10
+    await page.setViewport({
+      width: 3840,//this takes a while to run though...
+      height: 2400,
+      // deviceScaleFactor: 1,
+      deviceScaleFactor: 2,//higher density, looks odd though
+    });
+
   }
   {
     const targetPage = page;
@@ -84,11 +101,11 @@ export async function runPuppeteerWithBrowser(coreColors,browser,timeout=5000){
     await element.click();
   }
   const M3KeyToQueryIndex = [
-  { key: 'primary', i: 1 },
-  { key: 'secondary', i: 2 },
-  { key: 'tertiary', i: 3 },
-  { key: 'neutral', i: 4 }
-];
+    { key: 'primary', i: 1 },
+    { key: 'secondary', i: 2 },
+    { key: 'tertiary', i: 3 },
+    { key: 'neutral', i: 4 }
+  ];
   for (const { key, i } of M3KeyToQueryIndex) {
     await openDomPicker(page,i);
     await setDialogValue(page, i,coreColors[key]);
