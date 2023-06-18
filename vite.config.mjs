@@ -17,7 +17,9 @@ export default defineConfig({
       '.mjs',
     ],
   },
-  // build:[
+  /**
+   * For experimentation of puppeteer
+   */
   build: {
     lib: {
       name: 'material-design-3-import-export-ext',
