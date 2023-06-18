@@ -158,3 +158,16 @@ export class ChangeMainStep {
     return {...this};//should be fine
   }
 }
+/**
+ * todo + scroll into view probably needed
+ *  verify with waitForExpression? WaitForExpressionStep
+ *  need to call it WaitForExpressionStepStep
+ *  "expression": "new Promise(resolve => setTimeout(() => resolve(true),
+ * 2000))",
+ *  */
+//what is target? oh just frame
+const WaitForExpressionStepStep = {
+  "type": "waitForExpression",
+  "expression": "new Promise(resolve => {console.log('hi');return resolve(true);})",//yep this executes js... omg
+  //could've just used this for everything lol
+}

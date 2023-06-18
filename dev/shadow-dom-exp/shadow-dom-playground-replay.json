@@ -1,0 +1,78 @@
+{
+  "title": "shadow-dom-playground-replay",
+  "steps": [
+    {
+      "type": "setViewport",
+      "width": 1024,
+      "height": 768,
+      "deviceScaleFactor": 1,
+      "isMobile": false,
+      "hasTouch": false,
+      "isLandscape": false
+    },
+    {
+      "type": "navigate",
+      "url": "file:///C:/Users/Jason/WebstormProjects/material-design-3-import-export-ext/dev/shadow-dom-exp/shadow-dom-playground.html",
+      "assertedEvents": [
+        {
+          "type": "navigation",
+          "url": "file:///C:/Users/Jason/WebstormProjects/material-design-3-import-export-ext/dev/shadow-dom-exp/shadow-dom-playground.html",
+          "title": "Shadow Dom Playground"
+        }
+      ]
+    },
+    {
+      "type": "waitForElement",
+      "selectors": [
+        "pierce/input"
+      ],
+      "timeout": 5000
+    },
+    {
+      "type": "change",
+      "target": "main",
+      "value": "A",
+      "selectors": [
+        "pierce/input"
+      ]
+    },
+    {
+      "type": "waitForElement",
+      "selectors": [
+        [
+          "#a > div >>> input"
+        ]
+      ],
+      "timeout": 5000
+    },
+    {
+      "type": "change",
+      "target": "main",
+      "value": "B",
+      "selectors": [
+        [
+          "#a > div >>> input"
+        ]
+      ]
+    },
+    {
+      "type": "waitForElement",
+      "selectors": [
+        [
+          "#a > div >>> div >>> input"
+        ]
+      ],
+      "timeout": 5000
+    },
+    {
+      "type": "change",
+      "target": "main",
+      "value": "C",
+      "selectors": [
+        [
+          "#a > div >>> div >>> input"
+        ]
+      ]
+    }
+  ]
+}

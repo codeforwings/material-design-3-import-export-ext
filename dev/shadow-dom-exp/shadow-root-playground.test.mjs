@@ -140,6 +140,19 @@ describe('shadow-root-playground.test.mjs', function(){
     steps.push(new WaitForElementStepStep(selectors).toJSON());
     steps.push(new ChangeMainStep(newValue,selectors).toJSON());//maybe add verify?
 
+    /**
+     *  verify with waitForExpression?
+     *  "expression": "new Promise(resolve => setTimeout(() => resolve(true),
+     * 2000))",
+     *  */
+    //what is target? oh just frame
+    steps.push({
+      "type": "waitForExpression",
+      "expression": "new Promise(resolve => {console.log('hi');return resolve(true);})",//yep this executes js... omg
+      //could've just used this for everything lol
+    })
+
+
 
 
 
