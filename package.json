@@ -1,0 +1,24 @@
+{
+  "name": "material-design-3-import-export-ext",
+  "version": "0.1.0",
+  "description": "Basic Material Design 3 Import Export Utility",
+  "main": "src/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "material design",
+    "import",
+    "export",
+    "ext",
+    "puppeteer"
+  ],
+  "author": "hychan48",
+  "license": "GPLv3",
+  "devDependencies": {
+    "mocha": "^10.2.0"
+  },
+  "dependencies": {
+    "puppeteer-core": "^20.7.2"
+  }
+}
