@@ -6,6 +6,10 @@ import url from 'url';
 import { createRunner } from '@puppeteer/replay';
 import { PuppeteerRunnerExtension } from '@puppeteer/replay';
 import puppeteer from 'puppeteer';
+
+/**
+ * I dont need to extend this i believe
+ */
 class Extension extends PuppeteerRunnerExtension {
   async beforeAllSteps(flow) {
     await super.beforeAllSteps(flow);
