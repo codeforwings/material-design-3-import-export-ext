@@ -127,7 +127,9 @@ describe('shadow-root-playground.test.mjs', function(){
     ]
     // selectors=[["pierce/#a > div >> input"]]//nope
     // selectors=[["pierce/#a > div >>> input"]]//nope
-    selectors=[["#a > div >>> input"]]//works..., why wasnt it working before? too nested?
+    //okay. so for the actual browser, >>> isnt supported
+    // selectors=[["#a > div >>> input"]]//works..., why wasnt it working before? too nested?. have to manually break it
+    selectors=[["#a > div", "input"]]//works..., why wasnt it working before? too nested?. have to manually break it
     steps.push(new WaitForElementStepStep(selectors).toJSON());
     steps.push(new ChangeMainStep(newValue,selectors).toJSON());//maybe add verify?
 
@@ -136,7 +138,7 @@ describe('shadow-root-playground.test.mjs', function(){
      * @type {string}
      */
     newValue = 'C';
-    selectors=[["#a > div >>> div >>> input"]]//works..., why wasnt it working before? too nested?
+    selectors=["#a > div >>> div >>> input".split('>>>')]//works..., why wasnt it working before? too nested?
     steps.push(new WaitForElementStepStep(selectors).toJSON());
     steps.push(new ChangeMainStep(newValue,selectors).toJSON());//maybe add verify?
 

@@ -66,6 +66,7 @@ this.timeout(500);//500ms
 import {resolve} from "node:path";
 import fs from 'node:fs';
 import {
+  ChangeMainStep,
   ClickStep, ClickStepDefaults,
   NavigationStep,
   NavigationStepDefaults,
@@ -90,9 +91,10 @@ describe('generate-pupp-json.test.mjs', function(){
     const title = "import-colors";
     //---
     const viewPorts = {
-      width: 3840,//this bit longer to run though
-      height: 2400,
-      deviceScaleFactor: 2,//higher density, looks odd though
+      //arg viewport. fix when done
+
+      width: 1024, height: 728, deviceScaleFactor: 1,//higher density, looks odd though
+      // width: 3840, height: 2400, deviceScaleFactor: 2,//higher density, looks odd though
     }
     const url = 'https://m3.material.io/theme-builder#/custom';
     const urlTitle = 'Material Design';
@@ -101,12 +103,31 @@ describe('generate-pupp-json.test.mjs', function(){
     steps.push(new SetViewportStep(viewPorts).toJSON());//fixme update viewports
     steps.push(new NavigationStep(url,urlTitle).toJSON());
 
-    const colorIndex = 1;
-    //shadow doms till no work...
-    const selector = `body > mio-root > mio-theme-builder > theme-builder >>> main > root-page > custom-base >>> main > section.options > article > div:nth-child(2) > core-colors >>> section > div.colors > div:nth-child(${colorIndex}) > core-color-input >>> #root > color-input >>> #source-color`;
-    steps.push(new WaitForElementStepStep([selector]).toJSON());
-    steps.push(new ClickStep([selector]).toJSON());
-    // steps.push(new WaitForElementStepStep().toJSON());
+    let colorIndex,selector,hexValue='#c2185b'
+    colorIndex= 1;
+    /* 1. Open Dialog */
+    //wasnt working eaerlier... so weird
+    selector = `body > mio-root > mio-theme-builder > theme-builder >>> main > root-page > custom-base >>> main > section.options > article > div:nth-child(2) > core-colors >>> section > div.colors > div:nth-child(${colorIndex}) > core-color-input >>> #root > color-input >>> #source-color`
+    steps.push(new WaitForElementStepStep([[selector]],{visible:true}).toJSON());
+    steps.push(new ClickStep([[selector]]).toJSON());
+    //maybe verify
+    /* 2 Set Value */
+    selector = `body > mio-root > mio-theme-builder > theme-builder >>> main > root-page > custom-base >>> main > section.options > article > div:nth-child(2) > core-colors >>> section > div.colors > div:nth-child(${colorIndex}) > core-color-input >>> #root > color-input >>> #source-hex`;
+    steps.push(new WaitForElementStepStep([[selector]],{visible:true}).toJSON());
+    steps.push(new ChangeMainStep(hexValue,[[selector]]).toJSON());
+    /* press enter */
+    steps.push({
+      "type": "keyDown",//keyUp
+      "key": "Enter"
+    })
+    steps.push({
+      "type": "keyUp",//keyDown
+      "key": "Enter"
+    })
+    /* 3. Close Dialog */
+    selector = `body > mio-root > mio-theme-builder > theme-builder >>> main > root-page > custom-base >>> main > section.options > article > div:nth-child(2) > core-colors >>> section > div.colors > div:nth-child(${colorIndex}) > core-color-input >>> #root > color-input >>> #modal-dialog > div.actions > button`;
+    steps.push(new WaitForElementStepStep([[selector]],{visible:true}).toJSON());
+    steps.push(new ClickStep([[selector]]).toJSON());
 
 
 
