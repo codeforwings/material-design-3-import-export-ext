@@ -50,7 +50,8 @@ export class SetViewportStep{
 }
 
 export const NavigationStepDefaults = {
-  "type": Navigation,
+  // "type": Navigation,//apparently bugged
+  "type": 'navigate',
   "url": "https://m3.material.io/theme-builder#/custom?primary=#cba642",
   "assertedEvents": [
     {
@@ -61,7 +62,8 @@ export const NavigationStepDefaults = {
   ]
 }
 export class NavigationStep {
-  type = Navigation;
+  type = Navigation;//apparently doesnt work... wth
+  // type = 'navigation';//apparently doesnt work... wth
   url = '';
   assertedEvents = [
     {
@@ -78,8 +80,8 @@ export class NavigationStep {
    // * @param urlOrOptions {object}
    */
   // constructor(url,title,options={}) {
-  constructor(url,title) {
-    // Object.assign(this,NavigationStepDefaults, options);
+  constructor(url,title,options={}) {
+    Object.assign(this,NavigationStepDefaults, options);
     this.url = url;
     this.assertedEvents[0].url = url;
     this.assertedEvents[0].title = title;

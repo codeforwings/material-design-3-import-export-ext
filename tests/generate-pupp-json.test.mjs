@@ -80,10 +80,22 @@ function writeToFile(fileName,data,space=2){
 }
 describe('generate-pupp-json.test.mjs', function(){
   it('Generate and test basic navigation', function(){
+    const expected = fs
+      .readFileSync('lib/pupp-manual-recordings/example/example.com.json','utf8')
+      .toString();
     //assert.strictEqual(1,1);//require assert
+    const title = "example.com";
     const steps = [];
-    steps.push(new SetViewportStep());
-    // steps.push(new Navigation({url:'https://www.google.com'}));
+    steps.push(new SetViewportStep().toJSON());
+    steps.push(new NavigationStep('https://example.com/','Example Domain').toJSON());
+    const actual = {
+      title,steps
+    }
+    writeToFile("basic-navigation-example.json",actual);
+
+    //assert the files are the same
+    assert.deepStrictEqual(actual,JSON.parse(expected));
+
   });
 });
 
@@ -100,6 +112,8 @@ describe('steps-pupp-json-lookup.mjs', function(){
     const title = 'Material Design'
     const navigation = new NavigationStep(url,title);
     assert.deepStrictEqual(navigation.toJSON(),NavigationStepDefaults)
+    assert.strictEqual(navigation.assertedEvents[0].title,title)
+    assert.strictEqual(navigation.assertedEvents[0].type,'navigation')
   });
   it('Click', function(){
     //assert.strictEqual(1,1);//require assert
