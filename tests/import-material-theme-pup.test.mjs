@@ -19,6 +19,7 @@ import {sampleCoreColorsTheme} from "../lib/materialDesignThemeConstants.mjs";
 /**
  * Runs Puppeteer with a specific version of Chrome.
  * Hardcoded for now. used for testing
+ * @param headless {boolean | 'new'}
  * @returns {Promise<Browser>}
  */
 async function initBrowserForPuppeteerCore(headless=false){
@@ -49,6 +50,8 @@ describe('import-material-theme-pup.test.mjs', function(){
       try{
 
         // const browser = await initBrowserForPuppeteerCore();
+        let headless
+        headless = 'new';
         const browser = await initBrowserForPuppeteerCore('new');
         /**
          * @type {Page}
@@ -56,7 +59,9 @@ describe('import-material-theme-pup.test.mjs', function(){
         let page = await runPuppeteerWithBrowser(sampleCoreColorsTheme,browser);
         await page.screenshot({path: 'temp/screenshot.png'});
         console.log('screenshot');
-        await new Promise(resolve => setTimeout(resolve, 5000));
+        if(headless === false){//wait for 5 seconds if not headless
+          await new Promise(resolve => setTimeout(resolve, 5000));
+        }
         await browser.close();
 
       }catch (err) {

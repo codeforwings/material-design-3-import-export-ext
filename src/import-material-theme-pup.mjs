@@ -6,8 +6,8 @@
 //oh right... it was constant...
 //oh right... i might be able to build the json file using vite or something
 //todo main
-import puppeteer from "puppeteer-core";
-import {Browser} from "puppeteer-core";
+// import puppeteer from "puppeteer-core";
+import {Browser,Page} from "puppeteer-core";
 
 /**
  *
@@ -50,7 +50,7 @@ export async function runPuppeteerWithBrowser(coreColors,browser,timeout=5000){
    * Click
    * @param targetPage
    * @param colorIndex {MaterialThemeCoreColorsIndex}
-   * @return {Promise<void>}
+   * @return {Promise<Page>}
    */
   async function openDomPicker(targetPage,colorIndex=1){
     const selector = `body > mio-root > mio-theme-builder > theme-builder >>> main > root-page > custom-base >>> main > section.options > article > div:nth-child(2) > core-colors >>> section > div.colors > div:nth-child(${colorIndex}) > core-color-input >>> #root > color-input >>> #source-color`;
@@ -89,38 +89,19 @@ export async function runPuppeteerWithBrowser(coreColors,browser,timeout=5000){
   { key: 'tertiary', i: 3 },
   { key: 'neutral', i: 4 }
 ];
-
-
-  // //1. click on the primary color
-  // await openDomPicker(page,1);
-  // //2. set the color
-  // await setDialogValue(page, 1,'#837e76');
-  // //3. close
-  // await closeDialogBox(page,1)
-  //
-  //
-  // //1. click on the primary color
-  // await openDomPicker(page,2);
-  // //2. set the color
-  // await setDialogValue(page, 2,'#837e76');
-  // //3. close
-  // await closeDialogBox(page,2)
-  //
-  // //dev timeout before closing
-  // await new Promise(resolve => setTimeout(resolve, 5000));
-
-
-
-  /**
-   * Close section breakpoint... not sure if u want it too close?
-   */
+  for (const { key, i } of M3KeyToQueryIndex) {
+    await openDomPicker(page,i);
+    await setDialogValue(page, i,coreColors[key]);
+    await closeDialogBox(page,i);
+  }
+  //returning page for our purposes
   return page;
   // await browser.close();
 
   /**
+   * most likely the js is built from vite or alt.
    * Template functions generated from chrome puppeteer:
    */
-
   async function waitForSelectors(selectors, frame, options) {
     for (const selector of selectors) {
       try {
