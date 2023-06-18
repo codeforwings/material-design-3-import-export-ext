@@ -69,7 +69,8 @@ export class NavigationStep {
     {
       type: 'navigation',
       url: '',
-      title: ''
+      title: '',
+      "timeout": 5000,
     }
   ];
 
@@ -104,6 +105,7 @@ export const ClickStepDefaults = {
             "offsetY": 0,
             "offsetX": 0,
             "duration": 300, //hold time ms
+            "timeout": 5000,
     // assertedEvents = [
   //   {
   //     type: 'click',
@@ -113,8 +115,8 @@ export const ClickStepDefaults = {
 }
 export class ClickStep {
 
-  constructor(options) {
-    Object.assign(this, ClickStepDefaults,options);
+  constructor(selectors,options) {
+    Object.assign(this, ClickStepDefaults, {selectors},options);
   }
 
   toJSON() {
@@ -124,10 +126,32 @@ export class ClickStep {
 export const WaitForElementStepDefaults = {
   "type": "waitForElement",
   "selectors": [".my-class"],
+  "timeout": 5000,
 }
 export class WaitForElementStepStep {
-  constructor(options) {
-    Object.assign(this, WaitForElementStepDefaults,options);
+  constructor(selectors,options) {
+    Object.assign(this, WaitForElementStepDefaults,{selectors},options);
+  }
+
+  toJSON() {
+    return {...this};//should be fine
+  }
+}
+
+export const ChangeMainStepDefaults = {
+  type: 'change',
+  target: 'main',//not sure what that means
+  value: '#cba642',
+  selectors: [
+    ["input"],
+  ],
+  //if can validate... great
+
+}
+export class ChangeMainStep {
+
+  constructor(value,selectors,options) {
+    Object.assign(this, ChangeMainStepDefaults, {value,selectors},options);
   }
 
   toJSON() {

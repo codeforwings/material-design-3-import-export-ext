@@ -13,8 +13,11 @@
     "export",
     "ext",
     "puppeteer",
+    "puppeteer-core",
     "shadow dom",
-    "shadow root"
+    "shadow root",
+    "puppeteer replay",
+    "puppeteer json"
   ],
   "author": "hychan48",
   "license": "GPLv3",

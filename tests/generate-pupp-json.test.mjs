@@ -1,16 +1,16 @@
 /**
-yarn add mocha -D
+ yarn add mocha -D
 
-package.json
-  "imports": {
+ package.json
+ "imports": {
     "##/*": {
       "default": "./*"
     },
   },
-  "type": "module",
+ "type": "module",
 
-  jsconfig.json
-  {
+ jsconfig.json
+ {
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
@@ -22,7 +22,7 @@ package.json
 
 
 
-*/
+ */
 // import { createRequire } from 'module';
 // const require = createRequire(import.meta.url);
 // const assert = require('assert');
@@ -63,6 +63,7 @@ this.timeout(500);//500ms
  * @param fileName .json
  * @param data will automatically be changed
  */
+import {resolve} from "node:path";
 import fs from 'node:fs';
 import {
   ClickStep, ClickStepDefaults,
@@ -71,6 +72,7 @@ import {
   SetViewportStep,
   SetViewPortStepDefaults, WaitForElementStepDefaults, WaitForElementStepStep
 } from "##/src/generate-pupp-json/steps-pupp-json-lookup.mjs";
+import {runJsonFile} from "##/src/pupp-replay-runner-json/index.mjs";
 function writeToFile(fileName,data,space=2){
   const sFileName = /\./.test(fileName) ? fileName : fileName + '.json';
   const filePath = `lib/samples-test/${sFileName}`
@@ -79,6 +81,54 @@ function writeToFile(fileName,data,space=2){
   );
 }
 describe('generate-pupp-json.test.mjs', function(){
+  it('gen import colors', function(){
+    // const expected = fs
+    //   .readFileSync('lib/pupp-manual-recordings/example/example.com.json','utf8')
+    //   .toString();
+    //assert.strictEqual(1,1);//require assert
+    const outputFilePath = "import-colors.jsonc";
+    const title = "import-colors";
+    //---
+    const viewPorts = {
+      width: 3840,//this bit longer to run though
+      height: 2400,
+      deviceScaleFactor: 2,//higher density, looks odd though
+    }
+    const url = 'https://m3.material.io/theme-builder#/custom';
+    const urlTitle = 'Material Design';
+    //--
+    const steps = [];
+    steps.push(new SetViewportStep(viewPorts).toJSON());//fixme update viewports
+    steps.push(new NavigationStep(url,urlTitle).toJSON());
+
+    const colorIndex = 1;
+    //shadow doms till no work...
+    const selector = `body > mio-root > mio-theme-builder > theme-builder >>> main > root-page > custom-base >>> main > section.options > article > div:nth-child(2) > core-colors >>> section > div.colors > div:nth-child(${colorIndex}) > core-color-input >>> #root > color-input >>> #source-color`;
+    steps.push(new WaitForElementStepStep([selector]).toJSON());
+    steps.push(new ClickStep([selector]).toJSON());
+    // steps.push(new WaitForElementStepStep().toJSON());
+
+
+
+    const actual = {
+      title,steps
+    }
+    writeToFile(outputFilePath,actual);
+
+    //assert the files are the same
+    // assert.deepStrictEqual(actual,JSON.parse(expected));
+
+  });
+  /**
+   * waits 5 seconds in browser mode
+   */
+  it('runs json', async function(){
+    this.timeout(100000)
+    // await runJsonFile(resolve("lib/pupp-manual-recordings/example/example.com.json"));
+    await runJsonFile(resolve("lib/samples-test/import-colors.jsonc"));
+  })
+});
+describe('validate basics', function(){
   it('Generate and test basic navigation', function(){
     const expected = fs
       .readFileSync('lib/pupp-manual-recordings/example/example.com.json','utf8')
