@@ -14,7 +14,8 @@ import {M3KeyToQueryIndex} from "##/lib/materialDesignThemeConstants.mjs";
 /**
  * Tested and works
  * @param hexCoreColors
- * @return {{title: string, steps: *[]}}
+ * @param viewPorts {SetViewportStep}
+ * @return {{title: string, steps: *[]}} - Puppeteer JSON Runner for browser / and replay
  */
 export function generatePuppeteerJSON(hexCoreColors,viewPorts=null){
   const title = "import-colors";

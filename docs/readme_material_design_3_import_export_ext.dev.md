@@ -1,3 +1,10 @@
+# Outstanding
+1. push to codepen / stackblitz
+2. Send Link
+   1. json import creator
+   2. export cli maybe clipboard
+
+
 # Dev Notes
 * Personally just hope they'll integrate it into the Material Theme Builder...
 * Chrome Ext may follow

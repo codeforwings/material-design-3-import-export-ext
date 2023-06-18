@@ -28,7 +28,8 @@ export default defineConfig({
         // fileURLToPath(new URL('./src/import-material-theme-pup.mjs', import.meta.url)),
         // resolve('src/import-theme-chrome-pup.mjs'),
         // Ok... cannot use vite to roll it up... just doesnt work
-        resolve('##/lib/pupp-manual-recordings/Recording 6_17_2023 at 3_01_03 PM.js'),
+        // resolve('##/lib/pupp-manual-recordings/Recording 6_17_2023 at 3_01_03 PM.js'),
+        resolve('src/generate-pupp-json.mjs'),
       ]
     },
     rollupOptions: {
