@@ -124,7 +124,8 @@ describe('generate-pupp-json.test.mjs', function(){
       "type": "keyUp",//keyDown
       "key": "Enter"
     })
-    /* 3. Close Dialog */
+    /* 3. Close Dialog - added 10 pixels and it worked? */
+    // document.querySelector("body > mio-root > mio-theme-builder > theme-builder").shadowRoot.querySelector("main > root-page > custom-base").shadowRoot.querySelector("main > section.options > article > div:nth-child(2) > core-colors").shadowRoot.querySelector("section > div.colors > div:nth-child(1) > core-color-input").shadowRoot.querySelector("#root > color-input").shadowRoot.querySelector("#modal-dialog > div.actions > button")
     selector = `body > mio-root > mio-theme-builder > theme-builder >>> main > root-page > custom-base >>> main > section.options > article > div:nth-child(2) > core-colors >>> section > div.colors > div:nth-child(${colorIndex}) > core-color-input >>> #root > color-input >>> #modal-dialog > div.actions > button`;
     steps.push(new WaitForElementStepStep([selector.split('>>>')],{visible:true}).toJSON());
     steps.push(new ClickStep([selector.split('>>>')]).toJSON());

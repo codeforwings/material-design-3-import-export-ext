@@ -129,6 +129,7 @@ describe('shadow-root-playground.test.mjs', function(){
     // selectors=[["pierce/#a > div >>> input"]]//nope
     //okay. so for the actual browser, >>> isnt supported
     // selectors=[["#a > div >>> input"]]//works..., why wasnt it working before? too nested?. have to manually break it
+    //todo clean and combine and trim etc.
     selectors=[["#a > div", "input"]]//works..., why wasnt it working before? too nested?. have to manually break it
     steps.push(new WaitForElementStepStep(selectors).toJSON());
     steps.push(new ChangeMainStep(newValue,selectors).toJSON());//maybe add verify?

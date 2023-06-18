@@ -102,8 +102,8 @@ export const ClickStepDefaults = {
             "type": "click",
             "target": "main",
             "selectors":[".btn"],
-            "offsetY": 0,
-            "offsetX": 0,
+            "offsetY": 10,
+            "offsetX": 10,
             "duration": 300, //hold time ms
             "timeout": 5000,
     // assertedEvents = [
