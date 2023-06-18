@@ -6,8 +6,8 @@
 //oh right... it was constant...
 //oh right... i might be able to build the json file using vite or something
 //todo main
-// import puppeteer from "puppeteer-core";
-import {Browser,Page} from "puppeteer-core";
+import {Browser,Page} from "puppeteer";
+// import {Browser,Page} from "puppeteer-core";
 
 /**
  *

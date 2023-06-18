@@ -12,6 +12,10 @@
 * can technical use headless to just take screenshots...???
 
 # Puppeteer
+* https://yarnpkg.com/package/@puppeteer/replay
+  * for import / export?
+  * can i combine them?
+  * to think about later
 ```js
 
 ```
