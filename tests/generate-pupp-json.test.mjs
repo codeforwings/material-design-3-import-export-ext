@@ -74,6 +74,8 @@ import {
   SetViewPortStepDefaults, WaitForElementStepDefaults, WaitForElementStepStep
 } from "##/src/generate-pupp-json/steps-pupp-json-lookup.mjs";
 import {runJsonFile} from "##/src/pupp-replay-runner-json/index.mjs";
+import {generatePuppeteerJSON} from "##/src/generate-pupp-json.mjs";
+import {sampleCoreColorsTheme} from "##/lib/materialDesignThemeConstants.mjs";
 function writeToFile(fileName,data,space=2){
   const sFileName = /\./.test(fileName) ? fileName : fileName + '.json';
   const filePath = `lib/samples-test/${sFileName}`
@@ -82,7 +84,46 @@ function writeToFile(fileName,data,space=2){
   );
 }
 describe('generate-pupp-json.test.mjs', function(){
-  it('gen import colors', function(){
+  it('generatePuppeteerJSON', function(){
+
+    const outputFilePath = "import-colors.jsonc";
+    const viewPorts = {
+      width: 1024, height: 728, deviceScaleFactor: 1,//higher density, looks odd though
+      // width: 3840, height: 2400, deviceScaleFactor: 2,//higher density, looks odd though
+    };//should generate two i guess
+    const actual = generatePuppeteerJSON(sampleCoreColorsTheme)
+    writeToFile(outputFilePath,actual);
+
+  });
+  /**
+   * waits 5 seconds in browser mode
+   */
+  it('runs json', async function(){
+    this.timeout(100000)
+    // await runJsonFile(resolve("lib/pupp-manual-recordings/example/example.com.json"));
+    await runJsonFile(resolve("lib/samples-test/import-colors.jsonc"));
+  })
+});
+describe('validate basics', function(){
+  it('Generate and test basic navigation', function(){
+    const expected = fs
+      .readFileSync('lib/pupp-manual-recordings/example/example.com.json','utf8')
+      .toString();
+    //assert.strictEqual(1,1);//require assert
+    const title = "example.com";
+    const steps = [];
+    steps.push(new SetViewportStep().toJSON());
+    steps.push(new NavigationStep('https://example.com/','Example Domain').toJSON());
+    const actual = {
+      title,steps
+    }
+    writeToFile("basic-navigation-example.json",actual);
+
+    //assert the files are the same
+    assert.deepStrictEqual(actual,JSON.parse(expected));
+
+  });
+    it('gen import color single verbose', function(){
     // const expected = fs
     //   .readFileSync('lib/pupp-manual-recordings/example/example.com.json','utf8')
     //   .toString();
@@ -139,34 +180,6 @@ describe('generate-pupp-json.test.mjs', function(){
 
     //assert the files are the same
     // assert.deepStrictEqual(actual,JSON.parse(expected));
-
-  });
-  /**
-   * waits 5 seconds in browser mode
-   */
-  it('runs json', async function(){
-    this.timeout(100000)
-    // await runJsonFile(resolve("lib/pupp-manual-recordings/example/example.com.json"));
-    await runJsonFile(resolve("lib/samples-test/import-colors.jsonc"));
-  })
-});
-describe('validate basics', function(){
-  it('Generate and test basic navigation', function(){
-    const expected = fs
-      .readFileSync('lib/pupp-manual-recordings/example/example.com.json','utf8')
-      .toString();
-    //assert.strictEqual(1,1);//require assert
-    const title = "example.com";
-    const steps = [];
-    steps.push(new SetViewportStep().toJSON());
-    steps.push(new NavigationStep('https://example.com/','Example Domain').toJSON());
-    const actual = {
-      title,steps
-    }
-    writeToFile("basic-navigation-example.json",actual);
-
-    //assert the files are the same
-    assert.deepStrictEqual(actual,JSON.parse(expected));
 
   });
 });
