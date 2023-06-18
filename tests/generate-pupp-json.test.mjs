@@ -69,7 +69,7 @@ import {
   NavigationStep,
   NavigationStepDefaults,
   SetViewportStep,
-  SetViewPortStepDefaults
+  SetViewPortStepDefaults, WaitForElementStepDefaults, WaitForElementStepStep
 } from "##/src/generate-pupp-json/steps-pupp-json-lookup.mjs";
 function writeToFile(fileName,data,space=2){
   const sFileName = /\./.test(fileName) ? fileName : fileName + '.json';
@@ -105,6 +105,10 @@ describe('steps-pupp-json-lookup.mjs', function(){
     //assert.strictEqual(1,1);//require assert
     const clickStep = new ClickStep();
     assert.deepStrictEqual(clickStep.toJSON(),ClickStepDefaults)
-    console.log(ClickStepDefaults);
+  });
+  it('WaitForElementStepStep', function(){
+    //assert.strictEqual(1,1);//require assert
+    const waitForElementStepStep = new WaitForElementStepStep();
+    assert.deepStrictEqual(waitForElementStepStep.toJSON(),WaitForElementStepDefaults)
   });
 });

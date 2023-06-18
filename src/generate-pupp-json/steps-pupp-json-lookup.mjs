@@ -119,3 +119,16 @@ export class ClickStep {
     return {...this};//should be fine
   }
 }
+export const WaitForElementStepDefaults = {
+  "type": "waitForElement",
+  "selectors": [".my-class"],
+}
+export class WaitForElementStepStep {
+  constructor(options) {
+    Object.assign(this, WaitForElementStepDefaults,options);
+  }
+
+  toJSON() {
+    return {...this};//should be fine
+  }
+}
