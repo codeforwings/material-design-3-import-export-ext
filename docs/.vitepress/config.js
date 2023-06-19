@@ -3,7 +3,7 @@ import { defineConfig } from 'vitepress'
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   //https://vitepress.dev/reference/site-config#base
-  // base:"/material-design-3-import-export-ext/",
+  base:"/material-design-3-import-export-ext/",//should probably just use env
   // base:"/",
   // srcDir: './docs',
   srcDir: './src',//relative to the package.json vitepress dev <dir>
@@ -47,6 +47,13 @@ export default defineConfig({
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/codeforwings/material-design-3-import-export-ext' }
-    ]
+    ],
+    /** @type {import('vitepress/MarkdownOptions')} */
+    markdown:{
+      //https://vitepress.dev/reference/site-config#markdown
+      lineNumbers: true,
+      space_size: 2,//not sure if this works
+
+    }
   }
 })

@@ -10,7 +10,7 @@ hero:
   actions:
     - theme: brand
       text: Demo Examples
-      link: /markdown-examples
+      link: /demo.md
     - theme: alt
       text: Developer's References
       link: /dev/vue-path-test

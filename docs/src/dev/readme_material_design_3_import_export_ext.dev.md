@@ -8,6 +8,8 @@
 
 * Append / Clean up other notes. especially about this code
 * Link to other repo
+4. Add tree folder for vitepress...
+* really need consolidate a cheatsheet repo
 
 ## Dev Notes
 * Personally just hope they'll integrate it into the Material Theme Builder...
@@ -29,7 +31,11 @@
   * to think about later
 
 ## Links
-[Minifier](https://www.toptal.com/developers/javascript-minifier)
+* [Minifier](https://www.toptal.com/developers/javascript-minifier)
+  * for chrome. console.log wont show. just need to print t;
+* [beautifier](https://beautifier.io/)
+  * Expand JS for easier reading
+ 
 * private project with more notes:
 
 [//]: # (  * [material3-theme-builder-helper-ext]&#40;..%2F..%2Fmaterial3-theme-builder-helper-ext&#41;)
