@@ -33,8 +33,13 @@ const customCoreColors = { /* 1. Input Custom Colors */
   <<< @/public/puppJsonReplay/import-colors.json
 </details>
 
+### Test
+```bash
+pnpm run test:browserstack
+```
 
 ## Screenshot
-* [BrowserStack](https://automate.browserstack.com/dashboard/v2/public-build/dWxIUFBMNG9hOFI3ZkFNano4bERUd1dvTGJPTmZBMlViVFp1ZjM3M1NFVlVISmxTcEQ3QzB2bmIrLzBEcGUvSE11dmJSZTRKUy9ZcjM1dkFLUjZRT0E9PS0tdFY4N3VNWmdxcmZwNW9DVmswc0lkdz09--c2a743318608e93d35f686e906d4edefb5ad04d0)
+* [BrowserStack](https://automate.browserstack.com/dashboard/v2/public-build/d0gyUE5NTisySlV2OFVBeEFMQXBTMlJ1WkdmdU5VUUFuWVBrRlpSZGwyVGN2UHIwMEg3WTBpMEFQQTNoRDFwbisvSWFiSlQ3UitRcVFNS1AzZW5xTWc9PS0tSDRzTkRFbzk3N3hwZ0x2OGlyRFhJQT09--df19d14ce04bca38050f297c9e441722fdd10504)
+    * https://automate.browserstack.com/dashboard/v2/builds/cd5c00438b6ba744730d1ad7330dac410e1d9ceb
 * [ViewPorts](/dev/readme_material_design_3_import_export_ext.dev.html#viewports-for-screenshot)
 

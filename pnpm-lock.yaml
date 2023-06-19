@@ -22,6 +22,9 @@ devDependencies:
   mocha:
     specifier: ^10.2.0
     version: 10.2.0
+  once:
+    specifier: ^1.4.0
+    version: 1.4.0
   puppeteer:
     specifier: ^20.7.2
     version: 20.7.2
