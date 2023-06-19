@@ -1,11 +1,15 @@
-# Outstanding
+# Developer Notes
+## Outstanding
 1. push to codepen / stackblitz
 2. Send Link
    1. json import creator
    2. export cli maybe clipboard
+3. Icon / Logo
 
+* Append / Clean up other notes. especially about this code
+* Link to other repo
 
-# Dev Notes
+## Dev Notes
 * Personally just hope they'll integrate it into the Material Theme Builder...
 * Chrome Ext may follow
   * Open source / free to use
@@ -18,19 +22,17 @@
 * Review modern 'copy to clipboard' best practices / security
 * can technical use headless to just take screenshots...???
 
-# Puppeteer
+## Puppeteer
 * https://yarnpkg.com/package/@puppeteer/replay
   * for import / export?
   * can i combine them?
   * to think about later
-```js
 
-```
-
-# Links
+## Links
 [Minifier](https://www.toptal.com/developers/javascript-minifier)
 * private project with more notes:
-  * [material3-theme-builder-helper-ext](..%2F..%2Fmaterial3-theme-builder-helper-ext)
+
+[//]: # (  * [material3-theme-builder-helper-ext]&#40;..%2F..%2Fmaterial3-theme-builder-helper-ext&#41;)
 
 ## BrowserStack automation puppeteer ci/cd
 * BROWSERSTACK_ACCESS_KEY
@@ -40,7 +42,7 @@
   * https://automate.browserstack.com/dashboard/v2/builds/4b2df68f639c826c54d5e783aa1af13e3e2172f6
   * https://automate.browserstack.com/dashboard/v2/public-build/dWxIUFBMNG9hOFI3ZkFNano4bERUd1dvTGJPTmZBMlViVFp1ZjM3M1NFVlVISmxTcEQ3QzB2bmIrLzBEcGUvSE11dmJSZTRKUy9ZcjM1dkFLUjZRT0E9PS0tdFY4N3VNWmdxcmZwNW9DVmswc0lkdz09--c2a743318608e93d35f686e906d4edefb5ad04d0
 
-# Xpath Expermients
+## Xpath Experiments
 ```js
 // Example XPath expression
 var xpathExpression = '/html/body/mio-root/mio-theme-builder/theme-builder//main/root-page/custom-base//main/section[1]/article/div[2]/core-colors//section/div[1]/h2';
@@ -67,3 +69,16 @@ document.querySelector([
   "main > header > div.section.header-left > span"
 ])
 ```
+
+## ViewPorts for screenshot
+* 16by10 seems to be the best (Devs probably using Macs)
+```js
+/* should only use it for the screenshots */
+const viewPorts = {
+  width: 3840, height: 2400, deviceScaleFactor: 2,//higher density, looks odd though
+};
+```
+### high rez
+![16by9_1.png](/viewPortsExamples/16by10_2.png)
+### low rez
+![16by9_low_rez_1.png](/viewPortsExamples/16by9_low_rez_1.png)

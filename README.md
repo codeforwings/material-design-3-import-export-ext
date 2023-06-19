@@ -1,8 +1,9 @@
 # material-design-3-import-export-ext
 Basic Material Design 3 Import Export Utility.
 # Docs
-[Demo Page](https://codeforwings.github.io/material-design-3-import-export-ext/)
-[Live](https://codeforwings.github.io/material-design-3-import-export-ext/)
+* [Demo Page](https://codeforwings.github.io/material-design-3-import-export-ext/)
+* [Live](https://codeforwings.github.io/material-design-3-import-export-ext/)
+* Screenshot
 # One Liners
 * [Material Design Theme Builder](https://m3.material.io/theme-builder#/custom?primary=#cba642)
 * Export [README.md](docs%2FREADME.md#export)

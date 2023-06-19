@@ -3,9 +3,10 @@
 layout: home
 
 hero:
-  name: "Material Design Theme Import Export"
-  text: "Automation"
-  tagline: Importing and exporting Material Design Themes
+  name: "CodeForWings MTB Automation"
+#  name: "Material Theme Builder Import Export"
+  text: "Material Theme Builder"
+  tagline: Importing, exporting, storing Material Theme Builder
   actions:
     - theme: brand
       text: Demo Examples
