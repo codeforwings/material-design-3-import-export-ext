@@ -130,3 +130,7 @@ dist
 .pnp.*
 /temp/
 /lib/samples-test/
+
+# Vite perss
+docs/.vitepress/dist
+docs/.vitepress/cache

@@ -5,7 +5,10 @@
   "main": "src/index.mjs",
   "scripts": {
     "vite:build": "vite build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview  docs"
   },
   "keywords": [
     "material design",
@@ -27,7 +30,9 @@
     "mocha": "^10.2.0",
     "puppeteer": "^20.7.2",
     "puppeteer-core": "^20.7.2",
-    "vite": "^4.3.9"
+    "vite": "^4.3.9",
+    "vitepress": "1.0.0-beta.2",
+    "vue": "^3.3.4"
   },
   "dependencies": {
     "dotenv": "^16.3.1"
@@ -36,8 +41,11 @@
     "##/*": {
       "default": "./*"
     },
-    "src/*": {
+    "#src/*": {
       "default": "./src/*"
+    },
+    "#docs/*": {
+      "default": "./docs/*"
     }
   }
 }

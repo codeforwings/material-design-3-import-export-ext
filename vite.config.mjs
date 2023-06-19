@@ -7,20 +7,24 @@ export default defineConfig({
   define: { 'process.env': {} },
   resolve: {
     alias: {
-      //https://vitejs.dev/guide/build.html#library-mode
+      // https://vitejs.dev/config/shared-options.html#resolve-alias
+      //https://nodejs.dev/en/api/v18/packages/#subpath-imports
       '##': fileURLToPath(new URL('./',import.meta.url)),//might want to try # or @ again
-      'src': fileURLToPath(new URL('./src', import.meta.url)),
+      '#src': fileURLToPath(new URL('./src', import.meta.url)),
+      '#docs': fileURLToPath(new URL('./docs', import.meta.url)),//not sure if vite also needs this but yea
     },
     extensions: [
       '.js',
       '.json',
       '.mjs',
+      '.vue',
     ],
   },
   /**
    * For experimentation of puppeteer
    */
   build: {
+          //https://vitejs.dev/guide/build.html#library-mode
     lib: {
       name: 'material-design-3-import-export-ext',
       formats: ['es', 'cjs'],//('es' | 'cjs' | 'umd' | 'iife')
