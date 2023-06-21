@@ -41,6 +41,7 @@ export default defineConfig({
           { text: "Developer's Notes", link: '/dev/readme_material_design_3_import_export_ext.dev.md' },
           { text: 'Deploy', link: '/dev/deploy' },
           { text: 'Vite Paths', link: '/dev/vue-path-test' },
+          { text: 'Cheatsheet', link: '/dev/cheatsheet' },
         ]
       }
     ],

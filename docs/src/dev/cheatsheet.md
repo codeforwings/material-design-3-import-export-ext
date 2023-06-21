@@ -1,7 +1,7 @@
-# Import Export Cheatsheet
+## Import Export Cheatsheet
 * [Material Design Theme Builder](https://m3.material.io/theme-builder#/custom?primary=#cba642)
 
-# Export
+## Export
 ```js
   /**
    * Copy and paste this into the console of the theme builder
@@ -400,3 +400,30 @@ const puppeteer = require('puppeteer-core'); // v13.0.0 or later
 });
 
 ````
+
+## Pupp Replay JSON
+* Chrome wont allow importing anything except JSON
+
+```js
+/** @type {string} */
+let jsonFilePath
+/** @type {Browser} */
+let browser;
+
+const [page] = await browser.pages();//assuming has new page for now
+
+const ext = new PuppeteerRunnerExtension(browser, page,{timeout: 5000});
+/** @type {string} - JSON */
+const recordingText = fs.readFileSync(jsonFilePath, 'utf8').toString();
+
+
+
+// Validate & parse the file.
+/** @type {Recording} - JSON recording */
+const recording = parse(JSON.parse(recordingText));
+
+// Create a runner and execute the script.
+const runner = await createRunner(recording,ext);
+return runner.run();
+```
+<<< @/../../lib/samples-references/basic-navigation-example.json
