@@ -12,12 +12,13 @@ import { createRunner, parse} from '@puppeteer/replay';
 import fs from 'node:fs';
 import {generatePuppeteerJSON} from "#src/generate-pupp-json.mjs";
 import {sampleCoreColorsTheme} from "##/lib/materialDesignThemeConstants.mjs";
+import {runPuppeteerWithBrowser} from "#src/import-material-theme-pup.mjs";
 config();
 export const DefaultProjectBrowerStackCaps = {
   'browser': 'chrome',  // You can choose `chrome`, `edge` or `firefox` in this capability
   'browser_version': 'latest',  // We support v83 and above. You can choose `latest`, `latest-beta`, `latest-1`, `latest-2` and so on, in this capability
   'os': 'os x',
-      'os_version': 'Ventura',
+  'os_version': 'Ventura',
   //https://www.browserstack.com/automate/capabilities
   // "os" : "Windows",
   // "osVersion" : "11",
@@ -89,13 +90,13 @@ export async function importJsonCoreColors(jsonFilePath='docs/src/public/puppJso
   // Validate & parse the file.
   // /** @type {UserFlow} - JSON recording */
   // const recording = parse(JSON.parse(recordingText));
-        const viewPorts = {
-      //arg viewport. fix when done
+  const viewPorts = {
+    //arg viewport. fix when done
 
-      width: 1920, height: 1080, deviceScaleFactor: 1,//higher density, looks odd though
-      // width: 1024, height: 728, deviceScaleFactor: 1,//higher density, looks odd though
-      // width: 3840, height: 2400, deviceScaleFactor: 2,//higher density, looks odd though
-    }
+    width: 1920, height: 1080, deviceScaleFactor: 1,//higher density, looks odd though
+    // width: 1024, height: 728, deviceScaleFactor: 1,//higher density, looks odd though
+    // width: 3840, height: 2400, deviceScaleFactor: 2,//higher density, looks odd though
+  }
   const jsonStepsTitle = generatePuppeteerJSON(sampleCoreColorsTheme,viewPorts)
   const recording = parse(jsonStepsTitle);
   // Create a runner and execute the script.
@@ -105,8 +106,43 @@ export async function importJsonCoreColors(jsonFilePath='docs/src/public/puppJso
     //quick and dirty
     await page.evaluate(_ => {}, `browserstack_executor: ${JSON.stringify({action: 'setSessionStatus',arguments: {status: 'passed',reason: 'All steps executed'}})}`);
   }else{
-await page.evaluate(_ => {}, `browserstack_executor: ${JSON.stringify({action: 'setSessionStatus',arguments: {status: 'failed',reason: 'Failed to execute all steps'}})}`);
+    await page.evaluate(_ => {}, `browserstack_executor: ${JSON.stringify({action: 'setSessionStatus',arguments: {status: 'failed',reason: 'Failed to execute all steps'}})}`);
   }
   //look at screenshots
   await browser.close();
+}
+
+/**
+ * Trying to see if performance increases....
+ * 36 seconds... which makes a lot more sense
+ * @param browserStackCaps
+ * @return {Promise<void>}
+ */
+export async function puppDirectly(browserStackCaps = DefaultProjectBrowerStackCaps){
+  const browserWSEndpoint
+    = `wss://cdp.browserstack.com/puppeteer?caps=${encodeURIComponent(JSON.stringify(browserStackCaps))}`;
+  // const browser = await puppeteer.connect({browserWSEndpoint});
+  const browser = await connect({browserWSEndpoint});
+  // const [page] = browser.pages();//i get a feeling this aint puppeteer
+  const page = await browser.newPage();
+
+  const viewPorts = {
+    //arg viewport. fix when done
+
+    width: 1920, height: 1080, deviceScaleFactor: 1,//higher density, looks odd though
+    // width: 1024, height: 728, deviceScaleFactor: 1,//higher density, looks odd though
+    // width: 3840, height: 2400, deviceScaleFactor: 2,//higher density, looks odd though
+  }
+  try{
+    let pagef = await runPuppeteerWithBrowser(sampleCoreColorsTheme,browser,viewPorts)
+    await page.evaluate(_ => {}, `browserstack_executor: ${JSON.stringify({action: 'setSessionStatus',arguments: {status: 'passed',reason: 'All steps executed'}})}`);
+
+  }catch (e) {
+    await page.evaluate(_ => {}, `browserstack_executor: ${JSON.stringify({action: 'setSessionStatus',arguments: {status: 'failed',reason: 'Failed to execute all steps'}})}`);
+
+  }finally {
+    await browser.close();
+  }
+
+
 }

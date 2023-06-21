@@ -97,7 +97,7 @@ const expectedWSSForDemo = `wss://cdp.browserstack.com/puppeteer?caps=%7B%22brow
 import {URLSearchParams} from 'node:url';
 import {
   demoDuckDuckGo,
-  importJsonCoreColors
+  importJsonCoreColors, puppDirectly
 } from "##/dev/browerstack-automation-exp/browserAutomatePuppCoreColorsImport.mjs";
 describe('wss caps url confirmation', function(){
   it('caps url from demo', function(){
@@ -135,6 +135,15 @@ describe('browserAutomatePuppCoreColorsImport.test.mjs', function(){
     this.timeout(300000);//todo change the timeout and update the viewports etc. + screenshot
     await importJsonCoreColors()
   });
+
+  /**
+   * defn is a lot faster....
+   */
+  it('puppDirectly', async function(){
+    this.timeout(300000);//todo change the timeout and update the viewports etc. + screenshot
+    await puppDirectly()
+  });
+
 
 
 });
