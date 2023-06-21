@@ -5,13 +5,16 @@
    1. json import creator
    2. export cli maybe clipboard
 3. Icon / Logo
+   * look at codeforwings repo. outdated but has the icon pack there
 
 * Append / Clean up other notes. especially about this code
 * Link to other repo
 4. Add tree folder for vitepress...
 * really need consolidate a cheatsheet repo
 5. shadowDom / refactor to it's own repo or something
-
+* test matrix
+* update browerstack tutorial?
+* add shadowdom. maybe make a checklist using the project / issues
 
 ## Dev Notes
 * Personally just hope they'll integrate it into the Material Theme Builder...

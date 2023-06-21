@@ -1,3 +1,7 @@
+/**
+ * Duckduck go example from browserstack
+ * with updated to windows. and using env vars for secret
+ */
 'use strict';
 require('dotenv').config()
 const { strict } = require('once');

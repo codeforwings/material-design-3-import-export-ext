@@ -95,6 +95,7 @@ describe('generate-pupp-json.test.mjs', function(){
     writeToFile(outputFilePath,actual);
 
   });
+  //todo add viewport test
   /**
    * waits 5 seconds in browser mode
    */

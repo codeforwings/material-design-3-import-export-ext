@@ -13,7 +13,7 @@ hero:
       link: /demo.md
     - theme: alt
       text: Developer's References
-      link: /dev/vue-path-test
+      link: /dev/readme_material_design_3_import_export_ext.dev
 
 features:
   - title: Import
