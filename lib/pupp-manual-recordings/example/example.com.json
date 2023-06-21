@@ -1,0 +1,25 @@
+{
+    "title": "example.com",
+    "steps": [
+        {
+            "type": "setViewport",
+            "width": 1920,
+            "height": 937,
+            "deviceScaleFactor": 1,
+            "isMobile": false,
+            "hasTouch": false,
+            "isLandscape": false
+        },
+        {
+            "type": "navigate",
+            "url": "https://example.com/",
+            "assertedEvents": [
+                {
+                    "type": "navigation",
+                    "url": "https://example.com/",
+                    "title": "Example Domain"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,69 @@
+<!--https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_shadow_DOM-->
+<!--
+
+
+document.querySelector("#a > div").shadowRoot.querySelector("div").shadowRoot.querySelector("p")
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Shadow Dom Playground</title>
+</head>
+<!--dark-theme css-->
+<style>
+  :root {
+  --bg-color: white;
+  --text-color: black;
+}
+
+.dark-theme {
+  --bg-color: #333;
+  --text-color: white;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+h1, p {
+  margin-bottom: 1rem;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  border: none;
+  cursor: pointer;
+}
+</style>
+<body class="dark-theme">
+<h1>Shadow Dom Playground</h1>
+<div id="a">
+  <p>A</p>
+  <input value="A"/>
+  <div/>
+</div>
+<script>
+  /* might want to purposely add same ids */
+  const parent = document.querySelector('#a > div');
+  const shadowRootB = parent.attachShadow({mode: 'open'});
+  shadowRootB.innerHTML = `
+     <p>shadowRootB</p>
+     <input value="shadowRootB"/>
+     <div/>
+   `;
+  const shadowRootC = shadowRootB.querySelector("div").attachShadow({mode: 'open'});
+  shadowRootC.innerHTML = `
+   <p>shadowRootC</p>
+   <input value="shadowRootC"/>
+   <div/>
+ `;
+
+</script>
+
+</body>
+
+</html>

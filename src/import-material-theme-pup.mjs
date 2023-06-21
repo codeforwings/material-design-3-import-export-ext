@@ -6,20 +6,22 @@
 //oh right... it was constant...
 //oh right... i might be able to build the json file using vite or something
 //todo main
-// import puppeteer from "puppeteer-core";
-import {Browser,Page} from "puppeteer-core";
+import {Browser,Page} from "puppeteer";
+// import {Browser,Page} from "puppeteer-core";
 
 /**
  *
  * @param coreColors {MaterialThemeCoreColors}
  * @param browser {Browser}
  * @param timeout {number} - 5000 ms or 5 seconds is the default from puppeteer
+ * @param viewPort {object} - 5000 ms or 5 seconds is the default from puppeteer
  * add other configs later.
  * @return {Promise<Page>}
  * @example
  * Screenshot of the colors
  */
-export async function runPuppeteerWithBrowser(coreColors,browser,timeout=5000){
+export async function runPuppeteerWithBrowser(coreColors,browser,viewPort={},
+                                              timeout=5000){
   const page = await browser.newPage();
   /* init browser default settings from puppeteer */
   page.setDefaultTimeout(timeout);
@@ -39,12 +41,13 @@ export async function runPuppeteerWithBrowser(coreColors,browser,timeout=5000){
     //   //when zoomed
     // });
     //16:10 i think... yep mac is 16:10
-    await page.setViewport({
+    const defaultViewport = {
       width: 3840,//this takes a while to run though...
       height: 2400,
       // deviceScaleFactor: 1,
       deviceScaleFactor: 2,//higher density, looks odd though
-    });
+    }
+    await page.setViewport({...defaultViewport,...viewPort});
 
   }
   {

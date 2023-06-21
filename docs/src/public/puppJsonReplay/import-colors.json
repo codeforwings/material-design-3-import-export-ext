@@ -1,0 +1,432 @@
+{
+  "title": "import-colors",
+  "steps": [
+    {
+      "type": "navigate",
+      "url": "https://m3.material.io/theme-builder#/custom",
+      "assertedEvents": [
+        {
+          "type": "navigation",
+          "url": "https://m3.material.io/theme-builder#/custom",
+          "title": "Material Design"
+        }
+      ]
+    },
+    {
+      "type": "waitForElement",
+      "selectors": [
+        [
+          "body > mio-root > mio-theme-builder > theme-builder ",
+          " main > root-page > custom-base ",
+          " main > section.options > article > div:nth-child(2) > core-colors ",
+          " section > div.colors > div:nth-child(1) > core-color-input ",
+          " #root > color-input ",
+          " #source-color"
+        ]
+      ],
+      "timeout": 5000,
+      "visible": true
+    },
+    {
+      "type": "click",
+      "target": "main",
+      "selectors": [
+        [
+          "body > mio-root > mio-theme-builder > theme-builder ",
+          " main > root-page > custom-base ",
+          " main > section.options > article > div:nth-child(2) > core-colors ",
+          " section > div.colors > div:nth-child(1) > core-color-input ",
+          " #root > color-input ",
+          " #source-color"
+        ]
+      ],
+      "offsetY": 10,
+      "offsetX": 10,
+      "duration": 300,
+      "timeout": 5000
+    },
+    {
+      "type": "waitForElement",
+      "selectors": [
+        [
+          "body > mio-root > mio-theme-builder > theme-builder ",
+          " main > root-page > custom-base ",
+          " main > section.options > article > div:nth-child(2) > core-colors ",
+          " section > div.colors > div:nth-child(1) > core-color-input ",
+          " #root > color-input ",
+          " #source-hex"
+        ]
+      ],
+      "timeout": 5000,
+      "visible": true
+    },
+    {
+      "type": "change",
+      "target": "main",
+      "value": "#cba642",
+      "selectors": [
+        [
+          "body > mio-root > mio-theme-builder > theme-builder ",
+          " main > root-page > custom-base ",
+          " main > section.options > article > div:nth-child(2) > core-colors ",
+          " section > div.colors > div:nth-child(1) > core-color-input ",
+          " #root > color-input ",
+          " #source-hex"
+        ]
+      ]
+    },
+    {
+      "type": "keyDown",
+      "key": "Enter"
+    },
+    {
+      "type": "keyUp",
+      "key": "Enter"
+    },
+    {
+      "type": "waitForElement",
+      "selectors": [
+        [
+          "body > mio-root > mio-theme-builder > theme-builder ",
+          " main > root-page > custom-base ",
+          " main > section.options > article > div:nth-child(2) > core-colors ",
+          " section > div.colors > div:nth-child(1) > core-color-input ",
+          " #root > color-input ",
+          " #modal-dialog > div.actions > button"
+        ]
+      ],
+      "timeout": 5000,
+      "visible": true
+    },
+    {
+      "type": "click",
+      "target": "main",
+      "selectors": [
+        [
+          "body > mio-root > mio-theme-builder > theme-builder ",
+          " main > root-page > custom-base ",
+          " main > section.options > article > div:nth-child(2) > core-colors ",
+          " section > div.colors > div:nth-child(1) > core-color-input ",
+          " #root > color-input ",
+          " #modal-dialog > div.actions > button"
+        ]
+      ],
+      "offsetY": 10,
+      "offsetX": 10,
+      "duration": 300,
+      "timeout": 5000
+    },
+    {
+      "type": "waitForElement",
+      "selectors": [
+        [
+          "body > mio-root > mio-theme-builder > theme-builder ",
+          " main > root-page > custom-base ",
+          " main > section.options > article > div:nth-child(2) > core-colors ",
+          " section > div.colors > div:nth-child(2) > core-color-input ",
+          " #root > color-input ",
+          " #source-color"
+        ]
+      ],
+      "timeout": 5000,
+      "visible": true
+    },
+    {
+      "type": "click",
+      "target": "main",
+      "selectors": [
+        [
+          "body > mio-root > mio-theme-builder > theme-builder ",
+          " main > root-page > custom-base ",
+          " main > section.options > article > div:nth-child(2) > core-colors ",
+          " section > div.colors > div:nth-child(2) > core-color-input ",
+          " #root > color-input ",
+          " #source-color"
+        ]
+      ],
+      "offsetY": 10,
+      "offsetX": 10,
+      "duration": 300,
+      "timeout": 5000
+    },
+    {
+      "type": "waitForElement",
+      "selectors": [
+        [
+          "body > mio-root > mio-theme-builder > theme-builder ",
+          " main > root-page > custom-base ",
+          " main > section.options > article > div:nth-child(2) > core-colors ",
+          " section > div.colors > div:nth-child(2) > core-color-input ",
+          " #root > color-input ",
+          " #source-hex"
+        ]
+      ],
+      "timeout": 5000,
+      "visible": true
+    },
+    {
+      "type": "change",
+      "target": "main",
+      "value": "#8b90a5",
+      "selectors": [
+        [
+          "body > mio-root > mio-theme-builder > theme-builder ",
+          " main > root-page > custom-base ",
+          " main > section.options > article > div:nth-child(2) > core-colors ",
+          " section > div.colors > div:nth-child(2) > core-color-input ",
+          " #root > color-input ",
+          " #source-hex"
+        ]
+      ]
+    },
+    {
+      "type": "keyDown",
+      "key": "Enter"
+    },
+    {
+      "type": "keyUp",
+      "key": "Enter"
+    },
+    {
+      "type": "waitForElement",
+      "selectors": [
+        [
+          "body > mio-root > mio-theme-builder > theme-builder ",
+          " main > root-page > custom-base ",
+          " main > section.options > article > div:nth-child(2) > core-colors ",
+          " section > div.colors > div:nth-child(2) > core-color-input ",
+          " #root > color-input ",
+          " #modal-dialog > div.actions > button"
+        ]
+      ],
+      "timeout": 5000,
+      "visible": true
+    },
+    {
+      "type": "click",
+      "target": "main",
+      "selectors": [
+        [
+          "body > mio-root > mio-theme-builder > theme-builder ",
+          " main > root-page > custom-base ",
+          " main > section.options > article > div:nth-child(2) > core-colors ",
+          " section > div.colors > div:nth-child(2) > core-color-input ",
+          " #root > color-input ",
+          " #modal-dialog > div.actions > button"
+        ]
+      ],
+      "offsetY": 10,
+      "offsetX": 10,
+      "duration": 300,
+      "timeout": 5000
+    },
+    {
+      "type": "waitForElement",
+      "selectors": [
+        [
+          "body > mio-root > mio-theme-builder > theme-builder ",
+          " main > root-page > custom-base ",
+          " main > section.options > article > div:nth-child(2) > core-colors ",
+          " section > div.colors > div:nth-child(3) > core-color-input ",
+          " #root > color-input ",
+          " #source-color"
+        ]
+      ],
+      "timeout": 5000,
+      "visible": true
+    },
+    {
+      "type": "click",
+      "target": "main",
+      "selectors": [
+        [
+          "body > mio-root > mio-theme-builder > theme-builder ",
+          " main > root-page > custom-base ",
+          " main > section.options > article > div:nth-child(2) > core-colors ",
+          " section > div.colors > div:nth-child(3) > core-color-input ",
+          " #root > color-input ",
+          " #source-color"
+        ]
+      ],
+      "offsetY": 10,
+      "offsetX": 10,
+      "duration": 300,
+      "timeout": 5000
+    },
+    {
+      "type": "waitForElement",
+      "selectors": [
+        [
+          "body > mio-root > mio-theme-builder > theme-builder ",
+          " main > root-page > custom-base ",
+          " main > section.options > article > div:nth-child(2) > core-colors ",
+          " section > div.colors > div:nth-child(3) > core-color-input ",
+          " #root > color-input ",
+          " #source-hex"
+        ]
+      ],
+      "timeout": 5000,
+      "visible": true
+    },
+    {
+      "type": "change",
+      "target": "main",
+      "value": "#7a93b0",
+      "selectors": [
+        [
+          "body > mio-root > mio-theme-builder > theme-builder ",
+          " main > root-page > custom-base ",
+          " main > section.options > article > div:nth-child(2) > core-colors ",
+          " section > div.colors > div:nth-child(3) > core-color-input ",
+          " #root > color-input ",
+          " #source-hex"
+        ]
+      ]
+    },
+    {
+      "type": "keyDown",
+      "key": "Enter"
+    },
+    {
+      "type": "keyUp",
+      "key": "Enter"
+    },
+    {
+      "type": "waitForElement",
+      "selectors": [
+        [
+          "body > mio-root > mio-theme-builder > theme-builder ",
+          " main > root-page > custom-base ",
+          " main > section.options > article > div:nth-child(2) > core-colors ",
+          " section > div.colors > div:nth-child(3) > core-color-input ",
+          " #root > color-input ",
+          " #modal-dialog > div.actions > button"
+        ]
+      ],
+      "timeout": 5000,
+      "visible": true
+    },
+    {
+      "type": "click",
+      "target": "main",
+      "selectors": [
+        [
+          "body > mio-root > mio-theme-builder > theme-builder ",
+          " main > root-page > custom-base ",
+          " main > section.options > article > div:nth-child(2) > core-colors ",
+          " section > div.colors > div:nth-child(3) > core-color-input ",
+          " #root > color-input ",
+          " #modal-dialog > div.actions > button"
+        ]
+      ],
+      "offsetY": 10,
+      "offsetX": 10,
+      "duration": 300,
+      "timeout": 5000
+    },
+    {
+      "type": "waitForElement",
+      "selectors": [
+        [
+          "body > mio-root > mio-theme-builder > theme-builder ",
+          " main > root-page > custom-base ",
+          " main > section.options > article > div:nth-child(2) > core-colors ",
+          " section > div.colors > div:nth-child(4) > core-color-input ",
+          " #root > color-input ",
+          " #source-color"
+        ]
+      ],
+      "timeout": 5000,
+      "visible": true
+    },
+    {
+      "type": "click",
+      "target": "main",
+      "selectors": [
+        [
+          "body > mio-root > mio-theme-builder > theme-builder ",
+          " main > root-page > custom-base ",
+          " main > section.options > article > div:nth-child(2) > core-colors ",
+          " section > div.colors > div:nth-child(4) > core-color-input ",
+          " #root > color-input ",
+          " #source-color"
+        ]
+      ],
+      "offsetY": 10,
+      "offsetX": 10,
+      "duration": 300,
+      "timeout": 5000
+    },
+    {
+      "type": "waitForElement",
+      "selectors": [
+        [
+          "body > mio-root > mio-theme-builder > theme-builder ",
+          " main > root-page > custom-base ",
+          " main > section.options > article > div:nth-child(2) > core-colors ",
+          " section > div.colors > div:nth-child(4) > core-color-input ",
+          " #root > color-input ",
+          " #source-hex"
+        ]
+      ],
+      "timeout": 5000,
+      "visible": true
+    },
+    {
+      "type": "change",
+      "target": "main",
+      "value": "#837e76",
+      "selectors": [
+        [
+          "body > mio-root > mio-theme-builder > theme-builder ",
+          " main > root-page > custom-base ",
+          " main > section.options > article > div:nth-child(2) > core-colors ",
+          " section > div.colors > div:nth-child(4) > core-color-input ",
+          " #root > color-input ",
+          " #source-hex"
+        ]
+      ]
+    },
+    {
+      "type": "keyDown",
+      "key": "Enter"
+    },
+    {
+      "type": "keyUp",
+      "key": "Enter"
+    },
+    {
+      "type": "waitForElement",
+      "selectors": [
+        [
+          "body > mio-root > mio-theme-builder > theme-builder ",
+          " main > root-page > custom-base ",
+          " main > section.options > article > div:nth-child(2) > core-colors ",
+          " section > div.colors > div:nth-child(4) > core-color-input ",
+          " #root > color-input ",
+          " #modal-dialog > div.actions > button"
+        ]
+      ],
+      "timeout": 5000,
+      "visible": true
+    },
+    {
+      "type": "click",
+      "target": "main",
+      "selectors": [
+        [
+          "body > mio-root > mio-theme-builder > theme-builder ",
+          " main > root-page > custom-base ",
+          " main > section.options > article > div:nth-child(2) > core-colors ",
+          " section > div.colors > div:nth-child(4) > core-color-input ",
+          " #root > color-input ",
+          " #modal-dialog > div.actions > button"
+        ]
+      ],
+      "offsetY": 10,
+      "offsetX": 10,
+      "duration": 300,
+      "timeout": 5000
+    }
+  ]
+}

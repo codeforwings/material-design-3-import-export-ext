@@ -4,21 +4,39 @@
   "description": "Basic Material Design 3 Import Export Utility",
   "main": "src/index.mjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "vite:build": "vite build",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:preview": "vitepress preview docs",
+    "ghPagesDeploy": "node lib/deployToGHPages/ghPagesDeploy.mjs",
+    "test:browserstack": "node dev/browerstack-automation-exp/browserAutomatePuppCoreColorsImport.js"
   },
   "keywords": [
     "material design",
     "import",
     "export",
     "ext",
-    "puppeteer"
+    "puppeteer",
+    "puppeteer-core",
+    "shadow dom",
+    "shadow root",
+    "puppeteer replay",
+    "puppeteer json"
   ],
   "author": "hychan48",
   "license": "GPLv3",
   "devDependencies": {
+    "@puppeteer/replay": "^2.11.2",
     "chai": "^4.3.7",
+    "gh-pages": "^5.0.0",
     "mocha": "^10.2.0",
-    "puppeteer-core": "^20.7.2"
+    "once": "^1.4.0",
+    "puppeteer": "^20.7.2",
+    "puppeteer-core": "^20.7.2",
+    "vite": "^4.3.9",
+    "vitepress": "1.0.0-beta.2",
+    "vue": "^3.3.4"
   },
   "dependencies": {
     "dotenv": "^16.3.1"
@@ -26,6 +44,12 @@
   "imports": {
     "##/*": {
       "default": "./*"
+    },
+    "#src/*": {
+      "default": "./src/*"
+    },
+    "#docs/*": {
+      "default": "./docs/*"
     }
   }
 }
