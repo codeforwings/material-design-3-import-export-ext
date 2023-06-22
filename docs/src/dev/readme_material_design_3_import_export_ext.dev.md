@@ -93,3 +93,9 @@ const viewPorts = {
 ![16by9_1.png](/viewPortsExamples/16by10_2.png)
 ### low rez
 ![16by9_low_rez_1.png](/viewPortsExamples/16by9_low_rez_1.png)
+
+## FFMPEG
+```bash
+#pwsh
+ffmpeg -i 'pupp_replay_run_2023-06-22 00-42-51.mkv' -codec copy 'pupp_replay_run_2023-06-22 00-42-51.mp4'
+```
