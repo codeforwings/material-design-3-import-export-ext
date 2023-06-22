@@ -116,9 +116,8 @@ describe('generate-pupp-json.test.mjs', function(){
     // await runJsonFile(resolve("lib/pupp-manual-recordings/example/example.com.json"));
     await runJsonFile(resolve("lib/samples-test/import-colors.jsonc"));
   })
-    //todo add viewport test
   /**
-   * waits 5 seconds in browser mode
+   * Changing the viewport to 1080p for recording comparison with BrowserStack
    */
   it('runs json viewport record 1080p', async function(){
     this.timeout(100000)
