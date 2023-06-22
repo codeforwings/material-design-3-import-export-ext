@@ -126,11 +126,12 @@ describe('generate-pupp-json.test.mjs', function(){
     //https://stackoverflow.com/questions/48681145/set-pupeteer-window-size-when-running-not-headless-not-viewport
     const width = 1920, height = 1080;
     const options = {
-      args:[`--window-size=${width},${height}`]
+      args:[`--window-size=${width},${height}`],
+      // args: ['--start-maximized'],
     }
-    await runJsonFile(resolve("lib/samples-test/import-colors-1080p.json"),false,{
-      width, height, deviceScaleFactor: 1
-    },
+    await runJsonFile(resolve("lib/samples-test/import-colors-1080p.json"),false,
+      {width, height, deviceScaleFactor: 1},
+      // null,
       options);
   })
 });

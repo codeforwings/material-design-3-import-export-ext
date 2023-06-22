@@ -18,6 +18,7 @@ import {launch} from "puppeteer";
  * @param jsonFilePath {string | URL | PathLike}
  * @param headless {boolean|'new'}
  * @param defaultViewport {object}
+ * @param options {object}
  * @return {Promise<void>}
  */
 export async function runJsonFile(jsonFilePath,headless=false,defaultViewport=null,options={}){
@@ -37,11 +38,11 @@ export async function runJsonFile(jsonFilePath,headless=false,defaultViewport=nu
   await runJsonFileWithBrowser(jsonFilePath,browser);
 
   //pseudotimeout for testing
-  return
+  // return
   // await new Promise(resolve => setTimeout(resolve, 5000));
-  // const [page] = await browser.pages();
-  // await page.close();
-  // await browser.close();
+  const [page] = await browser.pages();
+  await page.close();
+  await browser.close();
 }
 export async function runJsonFileWithBrowser(jsonFilePath,browser){
   const [page] = await browser.pages();//assuming has new page for now
