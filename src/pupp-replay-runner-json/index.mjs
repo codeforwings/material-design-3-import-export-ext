@@ -6,6 +6,7 @@
  * https://github.com/puppeteer/replay#1-replay-recording
  */
 import { PuppeteerRunnerExtension } from '@puppeteer/replay';
+// import {Viewport} from 'puppeteer/lib/types'
 // import {resolve} from "node:path";
 import { createRunner, parse } from '@puppeteer/replay';
 import fs from 'fs';
@@ -15,11 +16,21 @@ import {launch} from "puppeteer";
 /**
  * For Testing
  * @param jsonFilePath {string | URL | PathLike}
+ * @param headless {boolean|'new'}
+ * @param defaultViewport {object}
  * @return {Promise<void>}
  */
-export async function runJsonFile(jsonFilePath,headless=false){
+export async function runJsonFile(jsonFilePath,headless=false,defaultViewport=null,options={}){
   const browser = await launch({
     headless,
+    defaultViewport,
+    // defaultViewport:{
+    //   width: 1920, height: 1080, deviceScaleFactor: 1
+    // },
+    ...options,//quick and dirty
+    // defaultViewport,
+    // args: ['--start-maximized']
+
     // headless: 'new',
     // headless: false,
   });
@@ -27,10 +38,10 @@ export async function runJsonFile(jsonFilePath,headless=false){
 
   //pseudotimeout for testing
   return
-  await new Promise(resolve => setTimeout(resolve, 5000));
-  const [page] = await browser.pages();
-  await page.close();
-  await browser.close();
+  // await new Promise(resolve => setTimeout(resolve, 5000));
+  // const [page] = await browser.pages();
+  // await page.close();
+  // await browser.close();
 }
 export async function runJsonFileWithBrowser(jsonFilePath,browser){
   const [page] = await browser.pages();//assuming has new page for now

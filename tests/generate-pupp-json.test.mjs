@@ -95,6 +95,18 @@ describe('generate-pupp-json.test.mjs', function(){
     writeToFile(outputFilePath,actual);
 
   });
+    it('generatePuppeteerJSON viewport 1080p', function(){
+
+    const outputFilePath = "import-colors-1080p.json";
+    const viewPorts = {
+      // width: 1024, height: 728, deviceScaleFactor: 1,//higher density, looks odd though
+      width: 1920, height: 1080, deviceScaleFactor: 1,//higher density, looks odd though
+      // width: 3840, height: 2400, deviceScaleFactor: 2,//higher density, looks odd though
+    };//should generate two i guess
+    const actual = generatePuppeteerJSON(sampleCoreColorsTheme,viewPorts)
+    writeToFile(outputFilePath,actual);
+
+  });
   //todo add viewport test
   /**
    * waits 5 seconds in browser mode
@@ -103,6 +115,24 @@ describe('generate-pupp-json.test.mjs', function(){
     this.timeout(100000)
     // await runJsonFile(resolve("lib/pupp-manual-recordings/example/example.com.json"));
     await runJsonFile(resolve("lib/samples-test/import-colors.jsonc"));
+  })
+    //todo add viewport test
+  /**
+   * waits 5 seconds in browser mode
+   */
+  it('runs json viewport record 1080p', async function(){
+    this.timeout(100000)
+    // await runJsonFile(resolve("lib/pupp-manual-recordings/example/example.com.json"));
+
+    //https://stackoverflow.com/questions/48681145/set-pupeteer-window-size-when-running-not-headless-not-viewport
+    const width = 1920, height = 1080;
+    const options = {
+      args:[`--window-size=${width},${height}`]
+    }
+    await runJsonFile(resolve("lib/samples-test/import-colors-1080p.json"),false,{
+      width, height, deviceScaleFactor: 1
+    },
+      options);
   })
 });
 describe('validate basics', function(){
