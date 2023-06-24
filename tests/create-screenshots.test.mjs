@@ -194,7 +194,7 @@ describe('create-screenshots.test.mjs', function(){
     this.timeout(100000);
     //so this functions creates a new page...
     // const targetPage = await runPuppeteerWithBrowser(DefaultCoreColors,browser,viewPort);
-    const targetPage = await createScreenshots.init(headless);
+    await createScreenshots.init(headless);
     await createScreenshots.takeScreenshots();
   });
   after(async function(){
