@@ -99,3 +99,18 @@ const viewPorts = {
 #pwsh
 ffmpeg -i 'pupp_replay_run_2023-06-22 00-42-51.mkv' -codec copy 'pupp_replay_run_2023-06-22 00-42-51.mp4'
 ```
+
+
+## Create Screenshots Class
+
+### Steps
+* Initialize Browser / Puppeteer Viewport
+* Update colors with `runPuppeteerWithBrowser` at 8k
+* takeScreenshot
+* Swap to dark / light theme
+* takeScreenshot
+
+### notes
+* File Structure
+* UI / MD
+  * have the filename converter as well..
