@@ -36,14 +36,15 @@ describe('import-material-theme-pup.test.mjs', function(){
       && fs.renameSync('temp/screenshot.png','temp/screenshot.tmp.png')
       let headless
       headless = 'new';
-      // headless = false;
+      headless = false;
       /** @type {ViewPort} */
-      const viewPort8k = {
+      let viewPort8k = {
         width: 3840,//this takes a while to run though...
         height: 2400,
         // deviceScaleFactor: 1,
         deviceScaleFactor: 2,//makes it 7680x4800
       }
+      viewPort8k.deviceScaleFactor = 0.5;//makes it 1920x1200
       const browser = await initBrowserForPuppeteerCore(headless);
       /**
        * @type {Page}
@@ -55,17 +56,18 @@ describe('import-material-theme-pup.test.mjs', function(){
       //todo create the puppeteer script for chrome. maybe using chrome
       //doesnt work because of scrollbars, need to increase the resolution to 3840x2400 at deviceScaleFactor 2
       await page.screenshot({path: 'temp/screenshot.png',fullPage: true });
+      fs.existsSync('temp/screenshot.tmp.png') && fs.unlinkSync('temp/screenshot.tmp.png');
       if(headless === false){//wait for 5 seconds if not headless
         await new Promise(resolve => setTimeout(resolve, 5000));
       }
       await browser.close();
-      assert.ok(fs.existsSync('temp/screenshot.png'));//maybe should check if updated, also create folder
-      fs.existsSync('temp/screenshot.tmp.png') && fs.unlinkSync('temp/screenshot.tmp.png');
-
     }catch (err) {
       // console.error(err);
       // process.exit(1);
       throw err;
+    }finally {
+      assert.ok(fs.existsSync('temp/screenshot.png'));//maybe should check if updated, also create folder
+
     }
   });
 
