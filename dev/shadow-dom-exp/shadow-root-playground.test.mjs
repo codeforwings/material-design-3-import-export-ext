@@ -74,6 +74,7 @@ import {
   SetViewPortStepDefaults, WaitForElementStepDefaults, WaitForElementStepStep
 } from "##/src/generate-pupp-json/steps-pupp-json-lookup.mjs";
 import {runJsonFile} from "##/src/pupp-replay-runner-json/index.mjs";
+import {shadowDomJSPathToAoA} from "##/dev/shadow-dom-exp/shadow-dom-utils.mjs";
 function writeToFile(fileName,data,space=2){
   const sFileName = /\./.test(fileName) ? fileName : fileName + '.json';
   const filePath = `lib/samples-test/${sFileName}`
@@ -120,9 +121,9 @@ describe('shadow-root-playground.test.mjs', function(){
     //exact syntax
     selectors = [
       [
-      "#a > div",
-      "input",//both work...
-      // ">>>input",//works too. without pierce
+        "#a > div",
+        "input",//both work...
+        // ">>>input",//works too. without pierce
       ],
     ]
     // selectors=[["pierce/#a > div >> input"]]//nope
@@ -175,6 +176,48 @@ describe('shadow-root-playground.test.mjs', function(){
     this.timeout(100000)
     await runJsonFile(resolve(jsonFilePathToRun));
   })
+});
+describe("shadowDomJSPathToAoA",function(){
+  it('basic example',function(){
+    const sInput = `document.querySelector("body > mio-root > mio-theme-builder > theme-builder").shadowRoot.querySelector("main")`
+    const expected = [["body > mio-root > mio-theme-builder > theme-builder","main"]];
+    const actual = shadowDomJSPathToAoA(sInput);
+    assert.deepStrictEqual(actual,expected);
+  });
+  it('shadowDomJSPathToAoA toggle',function(){
+    const sInput = `document.querySelector("body > mio-root > mio-theme-builder > theme-builder")
+    .shadowRoot.querySelector("main > root-page").shadowRoot.querySelector("main > header > div.row.section.header-right > mwc-icon-button:nth-child(2)")
+    .shadowRoot.querySelector("button > i")`.replace(/\n/g,'')
+    const expected = [
+      [
+        'body > mio-root > mio-theme-builder > theme-builder',
+        'main > root-page',
+        'main > header > div.row.section.header-right > mwc-icon-button:nth-child(2)',
+        'button > i'
+      ]
+    ]
+
+    const actual = shadowDomJSPathToAoA(sInput);
+    assert.deepStrictEqual(actual,expected);
+  });
+  /**
+   $('body > mio-root > mio-theme-builder > theme-builder')
+   document.querySelector(['body > mio-root > mio-theme-builder > theme-builder'])
+   document.querySelector([['body > mio-root > mio-theme-builder > theme-builder']])
+   document.querySelector([["body > mio-root > mio-theme-builder > theme-builder","main"]])
+   */
+  it('shadowDomJSPathToAoA console.log',function(){
+    const sInput = `document.querySelector("body > mio-root > mio-theme-builder > theme-builder")
+    .shadowRoot.querySelector("main > root-page").shadowRoot.querySelector("main > header > div.row.section.header-right > mwc-icon-button:nth-child(2)")
+    .shadowRoot.querySelector("button > i")`.replace(/\n/g,'')
+    const expected = [["body > mio-root > mio-theme-builder > theme-builder","main"]];
+
+    const actual = shadowDomJSPathToAoA(sInput);
+    console.log(actual);
+    console.log(actual.join(''));
+    // assert.deepStrictEqual(actual,expected);
+  });
+
 });
 
 

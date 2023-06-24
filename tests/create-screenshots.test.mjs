@@ -65,11 +65,16 @@ this.timeout(500);//500ms
  */
 import fs from 'node:fs';
 import {
-  CreateScreenshots,
+  createBrowserForScreenshot,
+  CreateScreenshots, DefaultsCreateScreenshots, DefaultViewPort,
   generateScreenshotsFileNames, getCoreColorFromFileNames
 } from "#src/create-screenshots/create-screenshots.mjs";
 import {ViewPort1080p, ViewPort8k} from "##/lib/pupp-consts/viewPortsConstants.mjs";
 import {DefaultCoreColors, sampleCoreColorsTheme} from "##/lib/materialDesignThemeColorConstants.mjs";
+import {rmAllFilesFromDir} from "##/lib/node-file-utils/index.mjs";
+import {initBrowserForPuppeteerCore} from "##/lib/import-material-theme-pup.test.utils.mjs";
+import {runPuppeteerWithBrowser} from "#src/import-material-theme-pup.mjs";
+import puppeteer from "puppeteer";
 function writeToFile(fileName,data,space=2){
   const sFileName = /\./.test(fileName) ? fileName : fileName + '.json';
   const filePath = `dev/pbs/test/${sFileName}`
@@ -77,6 +82,7 @@ function writeToFile(fileName,data,space=2){
     typeof data === 'string' ? data :JSON.stringify(data,null,+space)
   );
 }
+
 
 /**
  * Very similar to import-material-theme-pup.test.mjs
@@ -86,17 +92,115 @@ function writeToFile(fileName,data,space=2){
  */
 describe('create-screenshots.test.mjs', function(){
   /* Inputs */
-  let coreColors=[];
+  let coreColors=[DefaultCoreColors];
   let browser;
   /*-*/
+  let headless = 'new';//new persists? is that why
+  // headless = false;
+  const outFolderPath = DefaultsCreateScreenshots.outFolderPath;
+  let viewPort = DefaultViewPort;
+  // viewPort ={
+  //   width: 1920,height: 1080, deviceScaleFactor:1,
+  // }
+  const timeout = 5000;
   let createScreenshots;
-  before(function(){
+  let page;
+  before(async function(){
+    this.timeout(10000);
+    //rm all files from dir: /temp/create-screenshots
+    fs.mkdirSync(outFolderPath, { recursive: true});
+    rmAllFilesFromDir(outFolderPath);
+    //
+    // browser =
+    // browser = await initBrowserForPuppeteerCore(headless,viewPort);//generaly dont need for screenshots
+    // browser = await initBrowserForPuppeteerCore(headless);
+    browser = await createBrowserForScreenshot(headless);
+    const pages = await browser.pages();
+    if(pages.length > 0){
+      page = pages[0];
+      //mk when it's not 1
+      console.assert(pages.length === 1,'pages length: ' +pages.length);
 
-    createScreenshots = new CreateScreenshots(coreColors,browser)
+    }else{
+      console.debug("new page");
+      page = await browser.newPage();
+    }
+    // page = await browser.newPage();
+    // if(headless !== false){
+    //   const pages = await browser.pages();
+    //   page = pages[0];
+    // }else{
+    //   //wait what... im so confused
+    //   console.log('new page');
+    //   // page = await browser.newPage();
+    // }
+    // await page.goto('https://m3.material.io/theme-builder#/custom?primary=#cba642');
+    // await page.waitForNavigation({timeout})
+    // const title = await page.title()
+    // assert.strictEqual(title, 'Material Design');//maybe surround with try catch
+
+    //---
+    createScreenshots = new CreateScreenshots(coreColors,browser,viewPort);
   });
   it('CreateScreenshots validate before()', async function(){
+    this.timeout(-1);
+    // const [pageFirst] = await browser.pages();//add
+    // const title = await page.title();
+    // assert.strictEqual(title, 'Material Design');
+    // console.log(ViewPort8k);
+  });
+  it('CreateScreenshots viewport', async function(){
     this.timeout(100000);
-    console.log(createScreenshots);
+    if(headless !== false){
+      return assert.ok(true)
+    }
+    return assert.ok(true);//add env variable
+    // await page.goto("file:///C:/Users/Jason/WebstormProjects/material-design-3-import-export-ext/dev/shadow-dom-exp/shadow-dom-playground.html")
+    await page.goto("https://m3.material.io/theme-builder#/custom?primary=#cba642");
+    page.screenshot({path: 'temp/screenshot.png',fullPage: true });//this looks funny
+    page.screenshot({path: 'temp/create-screenshot.png',fullPage: false });//this is good
+    console.log('CreateScreenshots debug viewport');
+    // await new Promise(resolve => setTimeout(resolve, 500000));
+    //so this functions creates a new page...
+    // const targetPage = await runPuppeteerWithBrowser(DefaultCoreColors,browser);
+    // await targetPage.screenshot({path: 'temp/create-screenshot.png',fullPage: true });
+  });
+  /**
+   * basically i think it's
+   * puppeteer.launch without anything except headless new and other args
+   * fullPage: false
+   */
+  it('CreateScreenshots single validate', async function(){
+    this.timeout(100000);
+    //so this functions creates a new page...
+    // const targetPage = await runPuppeteerWithBrowser(DefaultCoreColors,browser,viewPort);
+    const targetPage = await runPuppeteerWithBrowser(DefaultCoreColors,browser);
+    await targetPage.screenshot({path: 'temp/create-screenshot.dark.png',fullPage: false });
+    const toggleBtn = await targetPage.waitForSelector(
+      [
+        'body > mio-root > mio-theme-builder > theme-builder',
+        'main > root-page',
+        'main > header > div.row.section.header-right > mwc-icon-button:nth-child(2)',
+        'button'
+      ]
+        .join('>>>'),//for pupp... need to use >>>?
+      // .join(','),
+      {timeout:5000});
+    // console.log("click",toggleBtn);
+    await toggleBtn.click();
+    await targetPage.screenshot({path: 'temp/create-screenshot.light.png',fullPage: false });
+  });
+  it('CreateScreenshots init and runOne', async function(){
+    this.timeout(100000);
+    //so this functions creates a new page...
+    // const targetPage = await runPuppeteerWithBrowser(DefaultCoreColors,browser,viewPort);
+    const targetPage = await createScreenshots.init(headless);
+    await createScreenshots.takeScreenshots();
+  });
+  after(async function(){
+    if(browser.close){
+      await browser.close();
+    }
   });
 });
 
@@ -162,6 +266,14 @@ describe('create-screenshots.test.mjs generic tests', function(){
     actual = getCoreColorFromFileNames(inputObj.light);
     assert.deepStrictEqual(actual, expected);
 
+  });
+  it('validate png size', function(){
+    //this.timeout(500);//todo
+    const inputPath = 'temp/create-screenshot.png';
+    // const fileStats = fs.fstatSync(inputPath);
+    // const fileStats = fs.statSync(inputPath);//no
+    // const fileStats = fs.lstatSync(inputPath);//no
+    // console.log(fileStats);
   });
 
 });

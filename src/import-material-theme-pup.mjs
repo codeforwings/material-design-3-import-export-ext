@@ -14,7 +14,7 @@ import {Browser,Page} from "puppeteer";
  * @param coreColors {MaterialThemeCoreColors}
  * @param browser {Browser}
  * @param timeout {number} - 5000 ms or 5 seconds is the default from puppeteer
- * @param viewPort {object} - 5000 ms or 5 seconds is the default from puppeteer
+ * @param viewPort {object} - Viewport of the page.. so dont think it's needed?
  * add other configs later.
  * @return {Promise<Page>}
  * @example
@@ -42,10 +42,12 @@ export async function runPuppeteerWithBrowser(coreColors,browser,viewPort={},
     // });
     //16:10 i think... yep mac is 16:10
     const defaultViewport = {
+      //i think this is zoom on the page? oh that's why
       width: 3840,//this takes a while to run though...
       height: 2400,
       // deviceScaleFactor: 1,
       deviceScaleFactor: 2,//higher density, looks odd though
+      // deviceScaleFactor: 0.5,//1920x1200... oddd
     }
     await page.setViewport({...defaultViewport,...viewPort});
 
@@ -63,7 +65,7 @@ export async function runPuppeteerWithBrowser(coreColors,browser,viewPort={},
    * 2. type / replace the color
    * 3. close
    * ... repeat
-   * todo check
+   * todo check and extract functions. make more generic instead of using >>> as well
    *
    */
   /**
@@ -366,4 +368,36 @@ export async function runPuppeteerWithBrowser(coreColors,browser,viewPort={},
   }
 }
 
+/**
+ * Current theme of Material Design. evaluate...
+ * todo maybe get the jsPath Shadowroot converter kinda thing
+ * @param {Document} _document
+ * @return {string|string} light_mode or dark_mode
+ */
+export function getCurrentTheme(_document=undefined) {
+  // const document = _document || window.document;
+  const document = window.document || _document;
+  const btnEle = document.querySelector("body > mio-root > mio-theme-builder > theme-builder")
+    .shadowRoot.querySelector("main > root-page").shadowRoot.querySelector("main > header > div.row.section.header-right > mwc-icon-button:nth-child(2)")
+    .shadowRoot.querySelector("button > i")
+  const reversedTheme = btnEle.innerText;//light_mode or dark_mode. but reversed
+  return reversedTheme==='light_mode'?'dark_mode':'light_mode';
+}
 
+/**
+ * Just going to click and return the new theme
+ * repeated until have some js builder
+ * @param _document
+ * @return {string}
+ */
+export function puppClick(_document=undefined) {
+  // const document = _document || window.document;
+  const document = window.document || _document;
+  const btnEle = document.querySelector("body > mio-root > mio-theme-builder > theme-builder")
+    .shadowRoot.querySelector("main > root-page").shadowRoot.querySelector("main > header > div.row.section.header-right > mwc-icon-button:nth-child(2)")
+    .shadowRoot.querySelector("button > i")
+  btnEle.click();
+  //wait?
+  const reversedTheme = btnEle.innerText;//light_mode or dark_mode. but reversed
+  return reversedTheme==='light_mode'?'dark_mode':'light_mode';
+}
