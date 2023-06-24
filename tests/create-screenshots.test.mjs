@@ -82,7 +82,45 @@ function writeToFile(fileName,data,space=2){
     typeof data === 'string' ? data :JSON.stringify(data,null,+space)
   );
 }
+/**
+ * Main Runner
+ */
+describe('create-screenshots.test.mjs - Main Runner', function(){
+  /* Inputs */
+  let coreColors=[sampleCoreColorsTheme,DefaultCoreColors];
+  // coreColors=[sampleCoreColorsTheme,DefaultCoreColors];
+  // coreColors=[sampleCoreColorsTheme,DefaultCoreColors];read from file
+  let browser;
+  //--
+  const outFolderPath = DefaultsCreateScreenshots.outFolderPath;
+  let createScreenshots;
+  let headless = 'new';
+  before(async function(){
+    this.timeout(10000);
+    //rm all files from dir: /temp/create-screenshots
+    fs.mkdirSync(outFolderPath, { recursive: true});
+    rmAllFilesFromDir(outFolderPath);
+    createScreenshots = new CreateScreenshots(coreColors,browser);
 
+  });
+  it('Single CreateScreenshots init and takeScreenshots', async function(){
+    this.timeout(100000);
+    await CreateScreenshots.runInitAndScreenshots(createScreenshots,headless)
+    browser = createScreenshots.browser;
+    //assert the titles
+  });
+  it('Multi runAllInitAndScreenshots', async function(){
+    this.timeout(100000);
+    await CreateScreenshots.runAllInitAndScreenshots(createScreenshots,headless)
+    browser = createScreenshots.browser;
+    //assert the titles
+  });
+  after(async function(){
+    if(browser.close){
+      await browser.close();
+    }
+  });
+});
 
 /**
  * Very similar to import-material-theme-pup.test.mjs
@@ -90,7 +128,7 @@ function writeToFile(fileName,data,space=2){
  * mkdir temp/create-screenshots
  * mkdir -p temp/create-screenshots
  */
-describe('create-screenshots.test.mjs', function(){
+describe('create-screenshots.test.mjs - debug', function(){
   /* Inputs */
   let coreColors=[DefaultCoreColors];
   let browser;
@@ -140,7 +178,8 @@ describe('create-screenshots.test.mjs', function(){
     // assert.strictEqual(title, 'Material Design');//maybe surround with try catch
 
     //---
-    createScreenshots = new CreateScreenshots(coreColors,browser,viewPort);
+    // createScreenshots = new CreateScreenshots(coreColors,browser,viewPort);
+    createScreenshots = new CreateScreenshots(coreColors);
   });
   it('CreateScreenshots validate before()', async function(){
     this.timeout(-1);
@@ -190,12 +229,12 @@ describe('create-screenshots.test.mjs', function(){
     await toggleBtn.click();
     await targetPage.screenshot({path: 'temp/create-screenshot.light.png',fullPage: false });
   });
-  it('CreateScreenshots init and runOne', async function(){
+  it('CreateScreenshots init and takeScreenshots', async function(){
     this.timeout(100000);
     //so this functions creates a new page...
     // const targetPage = await runPuppeteerWithBrowser(DefaultCoreColors,browser,viewPort);
-    await createScreenshots.init(headless);
-    await createScreenshots.takeScreenshots();
+    await CreateScreenshots.runInitAndScreenshots(createScreenshots,headless)
+    //assert the titles
   });
   after(async function(){
     if(browser.close){
@@ -204,6 +243,32 @@ describe('create-screenshots.test.mjs', function(){
   });
 });
 
+describe('create-screenshots.test.mjs - single', function(){
+  /* Inputs */
+  let coreColors=[DefaultCoreColors];
+  let browser;
+  //--
+  const outFolderPath = DefaultsCreateScreenshots.outFolderPath;
+  let createScreenshots;
+  let headless = 'new';
+  before(async function(){
+    this.timeout(10000);
+    //rm all files from dir: /temp/create-screenshots
+    fs.mkdirSync(outFolderPath, { recursive: true});
+    rmAllFilesFromDir(outFolderPath);
+    createScreenshots = new CreateScreenshots(coreColors);
+  });
+  it('CreateScreenshots init and takeScreenshots', async function(){
+    this.timeout(100000);
+    await CreateScreenshots.runInitAndScreenshots(createScreenshots,headless)
+    //assert the titles
+  });
+  after(async function(){
+    if(browser.close){
+      await browser.close();
+    }
+  });
+});
 
 /**
  * Just Testing and checking default settings needed

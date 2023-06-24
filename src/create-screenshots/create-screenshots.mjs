@@ -6,7 +6,7 @@ import {ViewPort8k} from "##/lib/pupp-consts/viewPortsConstants.mjs";
 import {DefaultCoreColors} from "##/lib/materialDesignThemeColorConstants.mjs";
 import puppeteer from "puppeteer";
 import {runPuppeteerWithBrowser} from "#src/import-material-theme-pup.mjs";
-
+import {join} from "node:path";
 /**
  * Defaults for CreateScreenshots
  * or use a getter / _defaults
@@ -18,7 +18,7 @@ import {runPuppeteerWithBrowser} from "#src/import-material-theme-pup.mjs";
 export const DefaultsCreateScreenshots = function(){
   return {
     outFolderPath:"temp/create-screenshots",//assuming folder assists atm.
-
+    timeout:5000,/* {timeout:this.options.timeout} */
 
   }
 }();
@@ -40,6 +40,7 @@ export const DefaultViewPort = ViewPort8k;
  * Viewport might be common to change... so
  */
 export class CreateScreenshots{
+  //i think right now browser and viewport are neglected. fix later
   constructor(coreColors=[DefaultCoreColors], browser, viewPort={...DefaultViewPort}, options) {
     // const actual = {coreColors,browser,options}
     this.coreColors = coreColors;
@@ -50,39 +51,69 @@ export class CreateScreenshots{
     /** @type {object} */
     this.page = undefined
     this.themeToggleBtnEle = undefined
+    this._currentCoreColorIndex = undefined;
+  }
+
+  incrementCoreColorIndex(){
+    this._currentCoreColorIndex++;
+  }
+  get coreColor(){
+    // if(typeof this.currentCoreColorIndex === "undefined"){
+    //   this.currentCoreColorIndex = 0;
+    // }
+    return this.coreColors[this._currentCoreColorIndex];
   }
   async init(headless='new'){
-    const browser = await createBrowserForScreenshot(headless);//quick and dirt
+    const browser = this.browser ?? await createBrowserForScreenshot(headless);//quick and dirt
+    this.browser = browser;
     const {coreColors} = this;
     this.page = await runPuppeteerWithBrowser(coreColors[0],browser);
+    this._currentCoreColorIndex = 0;
     return this.page;
   }
-  async takeScreenshots(){
+  async takeScreenshots(fullPage=true){
     //validate theme... assuming dark for now. have the function
-    //also can cache a lot of these
+    //also can cache a lot of these, and also currentCoreColor
     const page = this.page;
     const themeToggleBtnEle = await page.waitForSelector(ThemeBtnSelectorPuppeteer,
-      {timeout:5000});
+      {timeout:this.options.timeout});
     this.themeToggleBtnEle = themeToggleBtnEle;
-    await page.screenshot({path: 'temp/create-screenshot.dark.png',fullPage: true });
-    await themeToggleBtnEle.click();//fullPage seems to do the samething now... so odd
-    await page.screenshot({path: 'temp/create-screenshot.light.png',fullPage: true });
+    let {light,dark} = generateScreenshotsFileNames(this.coreColor);//todo, prefix by name?
+    let path;
+    // path = dark;
+    path = join(this.options.outFolderPath, dark);
+    await page.screenshot({path,fullPage });
+    await themeToggleBtnEle.click();//fullPage seems to work now...? so odd
+    // path = light;
+    path = join(this.options.outFolderPath, light);
+    await page.screenshot({path,fullPage });
 
-
+    //assumes someon else appends the index
   }
-
-  runOne(coreColor){
-
+  setToColorIndex(index=this._currentCoreColorIndex){
+    this._currentCoreColorIndex = index;
   }
-  runAll(){
-
-  }
-
   /**
-   *
+   * Takes only the single screenshot of the first one
+   * @param createScreenshots {CreateScreenshots}
+   * @param headless {boolean|'new'}
+   * @Example
+    * await CreateScreenshots.runInitAndScreenshots(createScreenshots,headless)
+   * create-screen-shots.test.mjs
    */
-  static runSample(){
+  static async runInitAndScreenshots(createScreenshots,headless='new'){
+    await createScreenshots.init(headless);
+    await createScreenshots.takeScreenshots();
+  }
+  static async runAllInitAndScreenshots(createScreenshots,headless='new'){
+    await createScreenshots.init(headless);
+    await createScreenshots.takeScreenshots();
+    createScreenshots.incrementCoreColorIndex();//quick and dirty
+    for (let i = 1; i < createScreenshots.coreColor.length; i++) {
 
+      await createScreenshots.takeScreenshots();
+      createScreenshots.incrementCoreColorIndex();//quick and dirty
+    }
   }
 
 }
