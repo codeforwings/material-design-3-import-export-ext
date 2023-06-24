@@ -12,7 +12,7 @@ function writeToFile(fileName,data,space=2){
 }
 // import puppeteer from "puppeteer-core";
 import { Browser, Page } from 'puppeteer-core';
-import {DefaultCoreColors, defaultFromMaterials, sampleCoreColorsTheme} from "../lib/materialDesignThemeConstants.mjs";
+import {DefaultCoreColors, defaultFromMaterials, sampleCoreColorsTheme} from "../lib/materialDesignThemeColorConstants.mjs";
 import {initBrowserForPuppeteerCore, testExportCoreColors} from "../lib/import-material-theme-pup.test.utils.mjs";
 import {runPuppeteerWithBrowser} from "##/src/import-material-theme-pup.mjs";
 import {exportCoreColorsUsingChrome} from "##/src/index.mjs";
@@ -20,41 +20,53 @@ import {exportCoreColorsUsingChrome} from "##/src/index.mjs";
 describe('import-material-theme-pup.test.mjs', function(){
   /**
    * Also takes a screenshot... need to assert somehow
+   * Screenshot export
+   * fixme refactor this import function
    */
   it('runPuppeteerWithBrowser headless', async function(){
     this.timeout(100000);
-      try{
-
-        // const browser = await initBrowserForPuppeteerCore();
-        //screenshot stuff
-        fs.mkdirSync('temp', { recursive: true});
-        fs.existsSync('temp/screenshot.png')
-          && fs.renameSync('temp/screenshot.png','temp/screenshot.tmp.png')
-        let headless
-        headless = 'new';
-        const browser = await initBrowserForPuppeteerCore('new');
-        /**
-         * @type {Page}
-         */
-        // let page = await runPuppeteerWithBrowser(sampleCoreColorsTheme,browser);
-        let page = await runPuppeteerWithBrowser(DefaultCoreColors,browser);//not sure why background is purple
-        //todo add the export color and check here or just create a new test...
-        // maybe just create a new test.. cuz dont need the screenshot like that... also refactor the screenshot stuff
-        //todo create the puppeteer script for chrome. maybe using chrome
-        //doesnt work because of scrollbars, need to increase the resolution to 3840x2400 at deviceScaleFactor 2
-        await page.screenshot({path: 'temp/screenshot.png',fullPage: true });
-        if(headless === false){//wait for 5 seconds if not headless
-          await new Promise(resolve => setTimeout(resolve, 5000));
-        }
-        await browser.close();
-        assert.ok(fs.existsSync('temp/screenshot.png'));//maybe should check if updated, also create folder
-        fs.existsSync('temp/screenshot.tmp.png') && fs.unlinkSync('temp/screenshot.tmp.png');
-
-      }catch (err) {
-        // console.error(err);
-        // process.exit(1);
-        throw err;
+    // this.timeout(-1);
+    try{
+      let inColors = DefaultCoreColors;
+      inColors = sampleCoreColorsTheme;
+      // const browser = await initBrowserForPuppeteerCore();
+      //screenshot stuff
+      fs.mkdirSync('temp', { recursive: true});
+      fs.existsSync('temp/screenshot.png')
+      && fs.renameSync('temp/screenshot.png','temp/screenshot.tmp.png')
+      let headless
+      headless = 'new';
+      // headless = false;
+      /** @type {ViewPort} */
+      const viewPort8k = {
+        width: 3840,//this takes a while to run though...
+        height: 2400,
+        // deviceScaleFactor: 1,
+        deviceScaleFactor: 2,//makes it 7680x4800
       }
+      const browser = await initBrowserForPuppeteerCore(headless);
+      /**
+       * @type {Page}
+       */
+        // let page = await runPuppeteerWithBrowser(sampleCoreColorsTheme,browser);
+      let page = await runPuppeteerWithBrowser(inColors,browser,viewPort8k);//not sure why background is purple
+      //todo add the export color and check here or just create a new test...
+      // maybe just create a new test.. cuz dont need the screenshot like that... also refactor the screenshot stuff
+      //todo create the puppeteer script for chrome. maybe using chrome
+      //doesnt work because of scrollbars, need to increase the resolution to 3840x2400 at deviceScaleFactor 2
+      await page.screenshot({path: 'temp/screenshot.png',fullPage: true });
+      if(headless === false){//wait for 5 seconds if not headless
+        await new Promise(resolve => setTimeout(resolve, 5000));
+      }
+      await browser.close();
+      assert.ok(fs.existsSync('temp/screenshot.png'));//maybe should check if updated, also create folder
+      fs.existsSync('temp/screenshot.tmp.png') && fs.unlinkSync('temp/screenshot.tmp.png');
+
+    }catch (err) {
+      // console.error(err);
+      // process.exit(1);
+      throw err;
+    }
   });
 
   /**
@@ -70,38 +82,38 @@ describe('import-material-theme-pup.test.mjs', function(){
   });
   it('testExportCoreColors headless', async function(){
     this.timeout(10000);
-      try{
+    try{
 
-        // const browser = await initBrowserForPuppeteerCore();
-        //screenshot stuff
-        fs.mkdirSync('temp', { recursive: true});
-        fs.existsSync('temp/screenshot.png')
-          && fs.renameSync('temp/screenshot.png','temp/screenshot.tmp.png')
-        let headless
-        headless = 'new';
-        const browser = await initBrowserForPuppeteerCore('new');
-        /**
-         *
-         */
-        let {page,colors} = await testExportCoreColors(browser);
-        assert.deepStrictEqual(colors,DefaultCoreColors);
-        // console.log(colors);
+      // const browser = await initBrowserForPuppeteerCore();
+      //screenshot stuff
+      fs.mkdirSync('temp', { recursive: true});
+      fs.existsSync('temp/screenshot.png')
+      && fs.renameSync('temp/screenshot.png','temp/screenshot.tmp.png')
+      let headless
+      headless = 'new';
+      const browser = await initBrowserForPuppeteerCore('new');
+      /**
+       *
+       */
+      let {page,colors} = await testExportCoreColors(browser);
+      assert.deepStrictEqual(colors,DefaultCoreColors);
+      // console.log(colors);
 
-        /* screenshot and close */
-        await page.screenshot({path: 'temp/screenshot.png'});
-        if(headless === false){//wait for 5 seconds if not headless
-          await new Promise(resolve => setTimeout(resolve, 5000));
-        }
-        await page.close();
-        await browser.close();
-        assert.ok(fs.existsSync('temp/screenshot.png'));//maybe should check if updated, also create folder
-        fs.existsSync('temp/screenshot.tmp.png') && fs.unlinkSync('temp/screenshot.tmp.png');
-
-      }catch (err) {
-        // console.error(err);
-        // process.exit(1);
-        throw err;
+      /* screenshot and close */
+      await page.screenshot({path: 'temp/screenshot.png'});
+      if(headless === false){//wait for 5 seconds if not headless
+        await new Promise(resolve => setTimeout(resolve, 5000));
       }
+      await page.close();
+      await browser.close();
+      assert.ok(fs.existsSync('temp/screenshot.png'));//maybe should check if updated, also create folder
+      fs.existsSync('temp/screenshot.tmp.png') && fs.unlinkSync('temp/screenshot.tmp.png');
+
+    }catch (err) {
+      // console.error(err);
+      // process.exit(1);
+      throw err;
+    }
   });
 
 });

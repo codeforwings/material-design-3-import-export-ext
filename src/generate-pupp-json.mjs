@@ -5,7 +5,7 @@ import {
   SetViewportStep,
   WaitForElementStepStep
 } from "##/src/generate-pupp-json/steps-pupp-json-lookup.mjs";
-import {M3KeyToQueryIndex} from "##/lib/materialDesignThemeConstants.mjs";
+import {M3KeyToQueryIndex} from "##/lib/materialDesignThemeColorConstants.mjs";
 /**
  * Based on m3-click-one.json
  *
