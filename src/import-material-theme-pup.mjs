@@ -82,6 +82,14 @@ export async function runPuppeteerWithBrowser(coreColors,browser,viewPort={},
     const selector = `body > mio-root > mio-theme-builder > theme-builder >>> main > root-page > custom-base >>> main > section.options > article > div:nth-child(2) > core-colors >>> section > div.colors > div:nth-child(${colorIndex}) > core-color-input >>> #root > color-input >>> #source-hex`;
     await scrollIntoViewIfNeeded([selector], targetPage, timeout);
     const element = await targetPage.waitForSelector(selector, targetPage,{ visible: true, timeout });
+    /**
+     * fixme. remove this after material theme builder is fixed
+     * workaround for material theme builder. neutral color  specifically
+     */
+    if(await element.evaluate(el => el.value) === value) {
+      return //no change. exit
+    }
+    /* set value */
     await typeIntoElement(element, value);
     if(await element.evaluate(el => el.value) !== value) {
       await changeElementValue(element, value);

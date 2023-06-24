@@ -75,7 +75,7 @@ import {
 } from "##/src/generate-pupp-json/steps-pupp-json-lookup.mjs";
 import {runJsonFile} from "##/src/pupp-replay-runner-json/index.mjs";
 import {generatePuppeteerJSON} from "##/src/generate-pupp-json.mjs";
-import {sampleCoreColorsTheme} from "##/lib/materialDesignThemeConstants.mjs";
+import {sampleCoreColorsTheme} from "##/lib/materialDesignThemeColorConstants.mjs";
 function writeToFile(fileName,data,space=2){
   const sFileName = /\./.test(fileName) ? fileName : fileName + '.json';
   const filePath = `lib/samples-test/${sFileName}`
