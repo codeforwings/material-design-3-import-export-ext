@@ -2,12 +2,13 @@
 
 ## Export to directory
 * /temp/create-screenshots
-  * move to 
+  * move to /docs/src/public/theme-library
 * [create-screenshots.test.mjs - Main Runner](tests/create-screenshots.test.mjs:90)
 * [lib/MaterialDesignThemeColorsList.mjs:21](lib/MaterialDesignThemeColorsList.mjs:21)
 
 
 ## Outstanding
+* add shortcut / tag to the json files...
 1. push to codepen / stackblitz
 2. Send Link
    1. json import creator
@@ -125,4 +126,9 @@ ffmpeg -i 'pupp_replay_run_2023-06-22 00-42-51.mkv' -vcodec copy 'pupp_replay_ru
 ### notes
 * File Structure
 * UI / MD
-  * have the filename converter as well..
+  * have the filename converter as well...
+
+
+### VitePress notes
+* https://github.com/vuejs/vuepress/issues/578
+* Need to look at some plugins for images...

@@ -19,6 +19,7 @@ export default defineConfig({
     nav: [
       // { text: 'Home', link: '/' },
       { text: 'Demo', link: '/demo' },
+      { text: 'Try Me', link: '/demo' },
       { text: 'MTB', link: 'https://m3.material.io/theme-builder#/custom?primary=#cba642' },
       { text: 'CFW', link: 'https://codeforwings.com/index.shtml' },
       // { text: 'Examples', link: '/markdown-examples' },
@@ -31,6 +32,8 @@ export default defineConfig({
         text: 'Demo',
         items: [
           { text: 'Demo - Import-Export', link: '/demo' },
+          { text: 'Playground', link: '/demos/demo-playground' },
+          { text: 'Exported Sample Themes', link: '/demos/create-shortcuts-demo' },//Create Shortcuts
           // { text: 'Markdown Examples', link: '/markdown-examples' },
           // { text: 'Runtime API Examples', link: '/api-examples' }
         ]
@@ -47,7 +50,7 @@ export default defineConfig({
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/codeforwings/material-design-3-import-export-ext' }
+      { icon: 'github', link: 'https://github.com/codeforwings/4material-design-3-import-export-ext' }
     ],
     /** @type {import('vitepress/MarkdownOptions')} */
     markdown:{

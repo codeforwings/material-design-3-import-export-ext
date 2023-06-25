@@ -1,0 +1,18 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="create-screenshots.test.mjs - Main Runner.runAllInitAndScreenshotsJSON" type="mocha-javascript-test-runner" nameIsGenerated="true">
+    <node-interpreter>project</node-interpreter>
+    <node-options />
+    <mocha-package>$PROJECT_DIR$/node_modules/mocha</mocha-package>
+    <working-directory>$PROJECT_DIR$</working-directory>
+    <pass-parent-env>true</pass-parent-env>
+    <ui>bdd</ui>
+    <extra-mocha-options />
+    <test-kind>TEST</test-kind>
+    <test-file>$PROJECT_DIR$/tests/create-screenshots.test.mjs</test-file>
+    <test-names>
+      <name value="create-screenshots.test.mjs - Main Runner" />
+      <name value="runAllInitAndScreenshotsJSON" />
+    </test-names>
+    <method v="2" />
+  </configuration>
+</component>

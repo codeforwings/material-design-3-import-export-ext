@@ -5,7 +5,9 @@
 <template>
 <span>Hello World!</span>
 </template>
-
-<style scoped>
+<!--
+dont use scoped. use module instead
+https://vitepress.dev/guide/using-vue#script-and-style-->
+<style module>
 
 </style>
