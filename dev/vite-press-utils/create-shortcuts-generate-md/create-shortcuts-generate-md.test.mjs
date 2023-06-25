@@ -122,7 +122,7 @@ describe('create-shortcuts-generate-md.test.mjs', function(){
     const copy = createOneMdSection(coreColor,templateFile);
     assert.strictEqual(copy,fs.readFileSync("dev/vite-press-utils/create-shortcuts-generate-md/samples/create-shortcuts-template-1.md").toString())
     // writeToFile('create-shortcuts-template-1.md',templateFile)
-    // writeToFile('create-shortcuts-template-1.md',copy)
+    writeToFile('create-shortcuts-template-1.md',copy)
 
     
     
