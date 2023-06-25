@@ -4,7 +4,7 @@ import {
   NavigationStep,
   SetViewportStep,
   WaitForElementStepStep
-} from "##/src/generate-pupp-json/steps-pupp-json-lookup.mjs";
+} from "#src/generate-pupp-json/steps-pupp-json-lookup.mjs";
 import {M3KeyToQueryIndex} from "##/lib/materialDesignThemeColorConstants.mjs";
 /**
  * Based on m3-click-one.json
@@ -17,8 +17,8 @@ import {M3KeyToQueryIndex} from "##/lib/materialDesignThemeColorConstants.mjs";
  * @param viewPorts {SetViewportStep}
  * @return {{title: string, steps: *[]}} - Puppeteer JSON Runner for browser / and replay
  */
-export function generatePuppeteerJSON(hexCoreColors,viewPorts=null){
-  const title = "import-colors";
+export function generatePuppeteerJSON(hexCoreColors,viewPorts=null,title="import-colors"){
+  // const title = "import-colors";
   //---
 
   const url = 'https://m3.material.io/theme-builder#/custom';

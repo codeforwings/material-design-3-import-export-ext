@@ -7,6 +7,7 @@ import {DefaultCoreColors} from "##/lib/materialDesignThemeColorConstants.mjs";
 import puppeteer from "puppeteer";
 import {runPuppeteerWithBrowser} from "#src/import-material-theme-pup.mjs";
 import {join} from "node:path";
+import {runPuppeteerPage} from "#src/create-screenshots/import-pupp-page.mjs";
 /**
  * Defaults for CreateScreenshots
  * or use a getter / _defaults
@@ -71,6 +72,12 @@ export class CreateScreenshots{
     this._currentCoreColorIndex = 0;
     return this.page;
   }
+
+  /**
+   *
+   * @param fullPage {boolean} - Page.screenshot options
+   * @return {Promise<{string}>} - FileName Prefix. i.e. themeM3-#6750A4-#958DA5-#B58392-#939094
+   */
   async takeScreenshots(fullPage=true){
     //validate theme... assuming dark for now. have the function
     //also can cache a lot of these, and also currentCoreColor
@@ -78,7 +85,7 @@ export class CreateScreenshots{
     const themeToggleBtnEle = await page.waitForSelector(ThemeBtnSelectorPuppeteer,
       {timeout:this.options.timeout});
     this.themeToggleBtnEle = themeToggleBtnEle;
-    let {light,dark} = generateScreenshotsFileNames(this.coreColor);//todo, prefix by name?
+    let {light,dark,prefix} = generateScreenshotsFileNames(this.coreColor);//todo, prefix by name?
     let path;
     // path = dark;
     path = join(this.options.outFolderPath, dark);
@@ -87,14 +94,24 @@ export class CreateScreenshots{
     // path = light;
     path = join(this.options.outFolderPath, light);
     await page.screenshot({path,fullPage });
+    return prefix;//filename prefix
+  }
 
-    //assumes someon else appends the index
-  }
-  setToColorIndex(index=this._currentCoreColorIndex){
+  /**
+   * Changes the page to the coreColor by its index
+   * dont want to overcomplicate this right now
+   * @param index
+   * @return {Promise<void>}
+   */
+  async setPageToColorIndex(index=this._currentCoreColorIndex){
     this._currentCoreColorIndex = index;
+    //maybe have a cache / check if already have screenshot... kinda separate function imo
+    await runPuppeteerPage(this.coreColor,this.page);
   }
+
   /**
    * Takes only the single screenshot of the first one
+   * Expected to be run inside of create-screen-test.mjs
    * @param createScreenshots {CreateScreenshots}
    * @param headless {boolean|'new'}
    * @Example
@@ -104,15 +121,44 @@ export class CreateScreenshots{
   static async runInitAndScreenshots(createScreenshots,headless='new'){
     await createScreenshots.init(headless);
     await createScreenshots.takeScreenshots();
+    //close browser outside...
   }
+
+  /**
+   * Takes screenshots of all the core colors. based on the name?
+   * @param createScreenshots
+   * @param headless
+   * @return {Promise<void>}
+   */
+  static async runInitAndScreenshotsJSON(createScreenshots,headless='new'){
+    await createScreenshots.init(headless);
+    await createScreenshots.takeScreenshots();
+
+
+    //close browser outside...
+  }
+
+  /**
+   * Takes screenshots of all the core colors
+   * Expected to be run inside of create-screen-test.mjs
+   * @param createScreenshots
+   * @param headless
+   * @return {Promise<void>}
+   */
   static async runAllInitAndScreenshots(createScreenshots,headless='new'){
     await createScreenshots.init(headless);
     await createScreenshots.takeScreenshots();
-    createScreenshots.incrementCoreColorIndex();//quick and dirty
-    for (let i = 1; i < createScreenshots.coreColor.length; i++) {
+    await createScreenshots.themeToggleBtnEle.click();
 
+    createScreenshots.incrementCoreColorIndex();//quick and dirty
+    for (let i = 1; i < createScreenshots.coreColors.length; i++) {
+      //should probably check screenshot cache here
+      await createScreenshots.setPageToColorIndex(i);
       await createScreenshots.takeScreenshots();
+      await createScreenshots.themeToggleBtnEle.click();
+
       createScreenshots.incrementCoreColorIndex();//quick and dirty
+
     }
   }
 
@@ -139,7 +185,7 @@ export function generateScreenshotsFileNames(coreColor,fileNamePrefix="themeM3")
   let light = `${prefix}.light.png`;
   /** @type {string} */
   let dark= `${prefix}.dark.png`;
-  return {light,dark}
+  return {light,dark,prefix}
 }
 
 /**

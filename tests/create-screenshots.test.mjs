@@ -84,6 +84,8 @@ function writeToFile(fileName,data,space=2){
 }
 /**
  * Main Runner
+ * Clears out the folder first
+ * doesn't cache yet
  */
 describe('create-screenshots.test.mjs - Main Runner', function(){
   /* Inputs */
@@ -95,6 +97,7 @@ describe('create-screenshots.test.mjs - Main Runner', function(){
   const outFolderPath = DefaultsCreateScreenshots.outFolderPath;
   let createScreenshots;
   let headless = 'new';
+  headless = false;
   before(async function(){
     this.timeout(10000);
     //rm all files from dir: /temp/create-screenshots
@@ -103,13 +106,23 @@ describe('create-screenshots.test.mjs - Main Runner', function(){
     createScreenshots = new CreateScreenshots(coreColors,browser);
 
   });
+  it('runInitAndScreenshotsJSON', async function(){
+    this.timeout(100000);
+    await CreateScreenshots.runInitAndScreenshotsJSON(createScreenshots,headless)
+    browser = createScreenshots.browser;
+    //assert the titles
+  });
+  /** can skip this */
   it('Single CreateScreenshots init and takeScreenshots', async function(){
+    return true;
     this.timeout(100000);
     await CreateScreenshots.runInitAndScreenshots(createScreenshots,headless)
     browser = createScreenshots.browser;
     //assert the titles
   });
+  /** can skip this */
   it('Multi runAllInitAndScreenshots', async function(){
+    return true;
     this.timeout(100000);
     await CreateScreenshots.runAllInitAndScreenshots(createScreenshots,headless)
     browser = createScreenshots.browser;
@@ -332,7 +345,16 @@ describe('create-screenshots.test.mjs generic tests', function(){
     assert.deepStrictEqual(actual, expected);
 
   });
-  it('validate png size', function(){
+  it('add json', function(){
+    //this.timeout(500);//todo
+    const inputPath = 'temp/create-screenshot.png';
+    // const fileStats = fs.fstatSync(inputPath);
+    // const fileStats = fs.statSync(inputPath);//no
+    // const fileStats = fs.lstatSync(inputPath);//no
+    // console.log(fileStats);
+  });
+
+    it('validate png size', function(){
     //this.timeout(500);//todo
     const inputPath = 'temp/create-screenshot.png';
     // const fileStats = fs.fstatSync(inputPath);

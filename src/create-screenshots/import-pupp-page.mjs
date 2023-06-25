@@ -1,64 +1,16 @@
-// const puppeteer = require('puppeteer'); // v13.0.0 or later
-// import { createRequire } from 'module';
-// const require = createRequire(import.meta.url);
-// const puppeteer = require('puppeteer-core'); // v13.0.0 or later
-// const {Browser} = puppeteer;
-//oh right... it was constant...
-//oh right... i might be able to build the json file using vite or something
-//todo main
-import {Browser,Page} from "puppeteer";
-// import {Browser,Page} from "puppeteer-core";
+/**
+ * Need to refactor / combine
+ * taken from import-material-theme-pup.mjs
+ */
+import {M3KeyToQueryIndex} from "##/lib/materialDesignThemeColorConstants.mjs";
 
 /**
  *
- * @param coreColors {MaterialThemeCoreColors}
- * @param browser {Browser}
- * @param timeout {number} - 5000 ms or 5 seconds is the default from puppeteer
- * @param viewPort {object} - Viewport of the page.. so dont think it's needed?
- * add other configs later.
- * @return {Promise<Page>}
- * @example
- * Screenshot of the colors
+ * @param coreColors
+ * @param page
+ * @return {page}
  */
-export async function runPuppeteerWithBrowser(coreColors,browser,viewPort={},
-                                              timeout=5000){
-  const page = await browser.newPage();
-  /* init browser default settings from puppeteer */
-  page.setDefaultTimeout(timeout);
-  {
-    const targetPage = page;
-    // await targetPage.setViewport({
-    //   width: 1920,
-    //   height: 937
-    // })
-    // https://en.wikipedia.org/wiki/Display_aspect_ratio
-    //16:9
-    // await page.setViewport({
-    //   width: 4096,
-    //   height: 2160,
-    //   deviceScaleFactor: 1,
-    //   // deviceScaleFactor: 2,//higher density? honesty looks the same defn looks better
-    //   //when zoomed
-    // });
-    //16:10 i think... yep mac is 16:10
-    const defaultViewport = {
-      //i think this is zoom on the page? oh that's why
-      width: 3840,//this takes a while to run though...
-      height: 2400,
-      // deviceScaleFactor: 1,
-      deviceScaleFactor: 2,//higher density, looks odd though
-      // deviceScaleFactor: 0.5,//1920x1200... oddd
-    }
-    await page.setViewport({...defaultViewport,...viewPort});
-
-  }
-  {
-    const targetPage = page;
-    const promises = [];
-    promises.push(targetPage.waitForNavigation());
-    await targetPage.goto('https://m3.material.io/theme-builder#/custom');
-    await Promise.all(promises);
-  }
+export async function runPuppeteerPage(coreColors,page,timeout=5000){
   /**
    * start section
    * 1. click on the primary color
@@ -113,12 +65,12 @@ export async function runPuppeteerWithBrowser(coreColors,browser,viewPort={},
     const element = await targetPage.waitForSelector(selector, targetPage,{ visible: true, timeout });
     await element.click();
   }
-  const M3KeyToQueryIndex = [
-    { key: 'primary', i: 1 },
-    { key: 'secondary', i: 2 },
-    { key: 'tertiary', i: 3 },
-    // { key: 'neutral', i: 4 }//fixme. return this after material theme builder is fixed
-  ];
+  // const M3KeyToQueryIndex = [
+  //   { key: 'primary', i: 1 },
+  //   { key: 'secondary', i: 2 },
+  //   { key: 'tertiary', i: 3 },
+  //   // { key: 'neutral', i: 4 }//fixme. return this after material theme builder is fixed
+  // ];
   for (const { key, i } of M3KeyToQueryIndex) {
     await openDomPicker(page,i);
     await setDialogValue(page, i,coreColors[key]);
@@ -368,36 +320,4 @@ export async function runPuppeteerWithBrowser(coreColors,browser,viewPort={},
   }
 }
 
-/**
- * Current theme of Material Design. evaluate...
- * todo maybe get the jsPath Shadowroot converter kinda thing
- * @param {Document} _document
- * @return {string|string} light_mode or dark_mode
- */
-export function getCurrentTheme(_document=undefined) {
-  // const document = _document || window.document;
-  const document = window.document || _document;
-  const btnEle = document.querySelector("body > mio-root > mio-theme-builder > theme-builder")
-    .shadowRoot.querySelector("main > root-page").shadowRoot.querySelector("main > header > div.row.section.header-right > mwc-icon-button:nth-child(2)")
-    .shadowRoot.querySelector("button > i")
-  const reversedTheme = btnEle.innerText;//light_mode or dark_mode. but reversed
-  return reversedTheme==='light_mode'?'dark_mode':'light_mode';
-}
-
-/**
- * Just going to click and return the new theme
- * repeated until have some js builder
- * @param _document
- * @return {string}
- */
-export function puppClick(_document=undefined) {
-  // const document = _document || window.document;
-  const document = window.document || _document;
-  const btnEle = document.querySelector("body > mio-root > mio-theme-builder > theme-builder")
-    .shadowRoot.querySelector("main > root-page").shadowRoot.querySelector("main > header > div.row.section.header-right > mwc-icon-button:nth-child(2)")
-    .shadowRoot.querySelector("button > i")
-  btnEle.click();
-  //wait?
-  const reversedTheme = btnEle.innerText;//light_mode or dark_mode. but reversed
-  return reversedTheme==='light_mode'?'dark_mode':'light_mode';
-}
+export default {runPuppeteerPage}

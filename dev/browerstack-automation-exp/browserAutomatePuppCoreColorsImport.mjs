@@ -10,7 +10,7 @@ import {expect} from "chai";
 import {PuppeteerRunnerExtension} from "@puppeteer/replay";
 import { createRunner, parse} from '@puppeteer/replay';
 import fs from 'node:fs';
-import {generatePuppeteerJSON} from "#src/generate-pupp-json.mjs";
+import {generatePuppeteerJSON} from "#src/generate-pupp-json/generate-pupp-json.mjs";
 import {sampleCoreColorsTheme} from "##/lib/materialDesignThemeColorConstants.mjs";
 import {runPuppeteerWithBrowser} from "#src/import-material-theme-pup.mjs";
 config();

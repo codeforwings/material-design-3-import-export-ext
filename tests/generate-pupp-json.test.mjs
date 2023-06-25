@@ -74,7 +74,7 @@ import {
   SetViewPortStepDefaults, WaitForElementStepDefaults, WaitForElementStepStep
 } from "##/src/generate-pupp-json/steps-pupp-json-lookup.mjs";
 import {runJsonFile} from "##/src/pupp-replay-runner-json/index.mjs";
-import {generatePuppeteerJSON} from "##/src/generate-pupp-json.mjs";
+import {generatePuppeteerJSON} from "#src/generate-pupp-json/generate-pupp-json.mjs";
 import {sampleCoreColorsTheme} from "##/lib/materialDesignThemeColorConstants.mjs";
 function writeToFile(fileName,data,space=2){
   const sFileName = /\./.test(fileName) ? fileName : fileName + '.json';
@@ -84,14 +84,20 @@ function writeToFile(fileName,data,space=2){
   );
 }
 describe('generate-pupp-json.test.mjs', function(){
+
+  /**
+   * Main Runner. right now it's not using
+   * fixme... re-run when neutral is fixed
+   */
   it('generatePuppeteerJSON', function(){
 
-    const outputFilePath = "import-colors.jsonc";
+    // const outputFilePath = "import-colors.jsonc";
+    const outputFilePath = "import-colors-no-neutral.json";//fixme... re-run when neutral is fixed
     const viewPorts = {
       width: 1024, height: 728, deviceScaleFactor: 1,//higher density, looks odd though
       // width: 3840, height: 2400, deviceScaleFactor: 2,//higher density, looks odd though
     };//should generate two i guess
-    const actual = generatePuppeteerJSON(sampleCoreColorsTheme)
+    const actual = generatePuppeteerJSON(sampleCoreColorsTheme,null,outputFilePath.split('.')[0])
     writeToFile(outputFilePath,actual);
 
   });
