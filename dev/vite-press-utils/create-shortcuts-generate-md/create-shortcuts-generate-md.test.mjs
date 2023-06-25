@@ -67,6 +67,7 @@ import fs from 'node:fs';
 import {CoreColorsScreenShotList} from "##/lib/MaterialDesignThemeColorsList.mjs";
 import {generateScreenshotsFileNames} from "#src/create-screenshots/generateScreenshotsFileNames.mjs";
 import {encodeURIComponentForVitePress} from "##/dev/vite-press-utils/index.mjs";
+import {DefaultCoreColors} from "##/lib/materialDesignThemeColorConstants.mjs";
 function writeToFile(fileName,data,space=2){
   const sFileName = /\./.test(fileName) ? fileName : fileName + '.json';
   const filePath = `dev/vite-press-utils/logs/${sFileName}`
@@ -75,6 +76,23 @@ function writeToFile(fileName,data,space=2){
   );
 }
 
+/**
+ *
+ * @param coreColor {MaterialThemeCoreColors}
+ * @param templateFile {string} - probably better to make a class or w/e to cache the file
+ * @returns - writes to file
+ * filename might be needed. but maybe later / or factory function / closure
+ */
+function createOneMdSection(coreColor,templateFile){
+    let prefix = generateScreenshotsFileNames(coreColor).prefix;
+    let copy = templateFile
+      .replace(/TERTIARY_COLOR/g,coreColor.tertiary)
+      .replace(/ENCODED_PATH/g,encodeURIComponentForVitePress(prefix))
+      .replace(/PREFIX/g,prefix)
+      .replace(/CORE_COLORS_JSON/g,JSON.stringify(coreColor))
+    ;
+    return copy;
+}
 /**
  * Note the anchor
  */
@@ -99,20 +117,30 @@ describe('create-shortcuts-generate-md.test.mjs', function(){
    */
   it('replace 1',function() {
     /** @type {MaterialThemeCoreColors} */
-    const coreColor = CoreColorsScreenShotList[0];
-    let prefix = generateScreenshotsFileNames(coreColor).prefix;
-    let copy = templateFile
-      .replace(/TERTIARY_COLOR/g,coreColor.tertiary)
-      .replace(/ENCODED_PATH/g,encodeURIComponentForVitePress(prefix))
-      .replace(/PREFIX/g,prefix)
-      .replace(/CORE_COLORS_JSON/g,JSON.stringify(coreColor))
-    ;
-
+    // const coreColor = CoreColorsScreenShotList[0];
+    const coreColor = DefaultCoreColors;
+    const copy = createOneMdSection(coreColor,templateFile);
+    assert.strictEqual(copy,fs.readFileSync("dev/vite-press-utils/create-shortcuts-generate-md/samples/create-shortcuts-template-1.md").toString())
     // writeToFile('create-shortcuts-template-1.md',templateFile)
-    writeToFile('create-shortcuts-template-1.md',copy)
+    // writeToFile('create-shortcuts-template-1.md',copy)
 
     
     
+  })
+  it('create all others',function() {
+    /** @type {string[]} */
+    const lazyStringArr = [];
+    //skipping first(custom) and last(default)
+    for (let i = 1; i < CoreColorsScreenShotList.length - 1; i++) {
+    /** @type {MaterialThemeCoreColors} */
+      const coreColor = CoreColorsScreenShotList[i];
+      const copy = createOneMdSection(coreColor,templateFile);
+      lazyStringArr.push(copy);
+
+    }
+
+    writeToFile('create-shortcuts-template-others.md',lazyStringArr.join('\n'));
+
   })
   
 
