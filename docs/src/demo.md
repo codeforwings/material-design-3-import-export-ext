@@ -6,13 +6,12 @@
 <<< @/components/consoleExport.min.js
 
 <<< @/components/consoleExport.js
-```js [sampleOutput.json]
-/* Chrome console output */
-const sampleOutput = { 
-  primary: '#6750A4',
-  secondary: '#958DA5',
-  tertiary: '#B58392',
-  neutral: '#939094'
+```json [sampleOutput.json]
+{ 
+  "primary": "#6750A4",
+  "secondary": "#958DA5",
+  "tertiary": "#B58392",
+  "neutral": "#939094"
 }
 ```
 :::

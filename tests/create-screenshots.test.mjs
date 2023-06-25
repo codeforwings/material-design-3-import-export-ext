@@ -67,7 +67,7 @@ import fs from 'node:fs';
 import {
   createBrowserForScreenshot,
   CreateScreenshots, DefaultsCreateScreenshots, DefaultViewPort,
-  generateScreenshotsFileNames, getCoreColorFromFileNames
+  getCoreColorFromFileNames
 } from "#src/create-screenshots/create-screenshots.mjs";
 import {ViewPort1080p, ViewPort8k} from "##/lib/pupp-consts/viewPortsConstants.mjs";
 import {DefaultCoreColors, sampleCoreColorsTheme} from "##/lib/materialDesignThemeColorConstants.mjs";
@@ -76,6 +76,7 @@ import {initBrowserForPuppeteerCore} from "##/lib/import-material-theme-pup.test
 import {runPuppeteerWithBrowser} from "#src/import-material-theme-pup.mjs";
 import puppeteer from "puppeteer";
 import {CoreColorsScreenShotList} from "##/lib/MaterialDesignThemeColorsList.mjs";
+import {generateScreenshotsFileNames} from "#src/create-screenshots/generateScreenshotsFileNames.js";
 function writeToFile(fileName,data,space=2){
   const sFileName = /\./.test(fileName) ? fileName : fileName + '.json';
   const filePath = `dev/pbs/test/${sFileName}`
