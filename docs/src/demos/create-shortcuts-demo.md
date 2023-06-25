@@ -35,3 +35,12 @@ head:
 :::
 
 
+## #426CBA
+<coreColors :core-colors='{"primary":"#CBA642","secondary":"#8B90A5","tertiary":"#426CBA","neutral":"#959088"}'/>
+<a target="_blank" href="/create-shortcuts//create-shortcuts/themeM3-%23CBA642-%238B90A5-%23426CBA-%23959088.json" download><span>themeM3-#CBA642-#8B90A5-#426CBA-#959088.json<svg class="feather feather-download downloadIcon icon"><use xlink:href="#dlIcon"></use></svg></span></a>
+::: details
+<<< @/public/create-shortcuts/themeM3-#CBA642-#8B90A5-#426CBA-#959088.json
+<imgAnchor filename='themeM3-#CBA642-#8B90A5-#426CBA-#959088.dark.png' />
+<imgAnchor filename='themeM3-#CBA642-#8B90A5-#426CBA-#959088.light.png' />
+
+:::

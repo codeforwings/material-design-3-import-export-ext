@@ -76,7 +76,7 @@ import {initBrowserForPuppeteerCore} from "##/lib/import-material-theme-pup.test
 import {runPuppeteerWithBrowser} from "#src/import-material-theme-pup.mjs";
 import puppeteer from "puppeteer";
 import {CoreColorsScreenShotList} from "##/lib/MaterialDesignThemeColorsList.mjs";
-import {generateScreenshotsFileNames} from "#src/create-screenshots/generateScreenshotsFileNames.js";
+import {generateScreenshotsFileNames} from "#src/create-screenshots/generateScreenshotsFileNames.mjs";
 function writeToFile(fileName,data,space=2){
   const sFileName = /\./.test(fileName) ? fileName : fileName + '.json';
   const filePath = `dev/pbs/test/${sFileName}`

@@ -10,7 +10,7 @@ import {join} from "node:path";
 import {writeFileSync} from "node:fs";
 import {runPuppeteerPage} from "#src/create-screenshots/import-pupp-page.mjs";
 import {generatePuppeteerJSON} from "#src/generate-pupp-json/generate-pupp-json.mjs";
-import {generateScreenshotsFileNames} from "#src/create-screenshots/generateScreenshotsFileNames.js";
+import {generateScreenshotsFileNames} from "#src/create-screenshots/generateScreenshotsFileNames.mjs";
 /**
  * Defaults for CreateScreenshots
  * or use a getter / _defaults

@@ -10,7 +10,7 @@
 import { ref } from 'vue'
 import { computed } from 'vue'
 import {sampleCoreColorsTheme} from "##/lib/materialDesignThemeColorConstants.mjs";
-import {generateScreenshotsFileNames} from "#src/create-screenshots/generateScreenshotsFileNames";
+import {generateScreenshotsFileNames} from "#src/create-screenshots/generateScreenshotsFileNames.mjs";
 // import {generatePuppeteerJSON} from "#src/generate-pupp-json/generate-pupp-json.mjs";
 import {generatePuppeteerJSON} from "##/dist/generate-pupp-json.mjs";
 import CoreColors from "#docs/src/components/utils/coreColors.vue";
