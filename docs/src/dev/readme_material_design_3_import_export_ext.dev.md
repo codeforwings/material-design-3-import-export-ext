@@ -9,6 +9,7 @@
 
 ## Outstanding
 * add shortcut / tag to the json files...
+* Team Page
 1. push to codepen / stackblitz
 2. Send Link
    1. json import creator

@@ -19,7 +19,7 @@ export default defineConfig({
     nav: [
       // { text: 'Home', link: '/' },
       { text: 'Demo', link: '/demo' },
-      { text: 'Try Me', link: '/demo' },
+      { text: 'Try Me', link: '/demos/demo-playground' },
       { text: 'MTB', link: 'https://m3.material.io/theme-builder#/custom?primary=#cba642' },
       { text: 'CFW', link: 'https://codeforwings.com/index.shtml' },
       // { text: 'Examples', link: '/markdown-examples' },

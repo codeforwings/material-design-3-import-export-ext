@@ -45,3 +45,9 @@ pnpm run test:browserstack
     * https://automate.browserstack.com/dashboard/v2/builds/cd5c00438b6ba744730d1ad7330dac410e1d9ceb
 * [ViewPorts](/dev/readme_material_design_3_import_export_ext.dev.html#viewports-for-screenshot)
 
+a[download] {
+  /* Add your desired styling for the download link */
+  color: blue;
+  font-weight: bold;
+  text-decoration: underline;
+}
