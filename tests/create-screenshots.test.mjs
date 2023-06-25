@@ -75,6 +75,7 @@ import {rmAllFilesFromDir} from "##/lib/node-file-utils/index.mjs";
 import {initBrowserForPuppeteerCore} from "##/lib/import-material-theme-pup.test.utils.mjs";
 import {runPuppeteerWithBrowser} from "#src/import-material-theme-pup.mjs";
 import puppeteer from "puppeteer";
+import {CoreColorsScreenShotList} from "##/lib/MaterialDesignThemeColorsList.mjs";
 function writeToFile(fileName,data,space=2){
   const sFileName = /\./.test(fileName) ? fileName : fileName + '.json';
   const filePath = `dev/pbs/test/${sFileName}`
@@ -89,15 +90,15 @@ function writeToFile(fileName,data,space=2){
  */
 describe('create-screenshots.test.mjs - Main Runner', function(){
   /* Inputs */
-  let coreColors=[sampleCoreColorsTheme,DefaultCoreColors];
+  let coreColors=[DefaultCoreColors];
+  coreColors = CoreColorsScreenShotList
   // coreColors=[sampleCoreColorsTheme,DefaultCoreColors];
-  // coreColors=[sampleCoreColorsTheme,DefaultCoreColors];read from file
   let browser;
   //--
   const outFolderPath = DefaultsCreateScreenshots.outFolderPath;
   let createScreenshots;
   let headless = 'new';
-  headless = false;
+  // headless = false;
   before(async function(){
     this.timeout(10000);
     //rm all files from dir: /temp/create-screenshots
@@ -106,13 +107,27 @@ describe('create-screenshots.test.mjs - Main Runner', function(){
     createScreenshots = new CreateScreenshots(coreColors,browser);
 
   });
+  /**
+   * Outputs three files
+   * <prefix>.dark.png
+   * <prefix>.light.png
+   * <prefix>.json
+   */
+  it('runAllInitAndScreenshotsJSON', async function(){
+    this.timeout(100000);
+    await CreateScreenshots.runAllInitAndScreenshotsJSON(createScreenshots,headless)
+    browser = createScreenshots.browser;
+    //assert the titles
+  });
+  /** can skip this */
   it('runInitAndScreenshotsJSON', async function(){
+    return true;
     this.timeout(100000);
     await CreateScreenshots.runInitAndScreenshotsJSON(createScreenshots,headless)
     browser = createScreenshots.browser;
     //assert the titles
   });
-  /** can skip this */
+    /** can skip this */
   it('Single CreateScreenshots init and takeScreenshots', async function(){
     return true;
     this.timeout(100000);
@@ -120,7 +135,7 @@ describe('create-screenshots.test.mjs - Main Runner', function(){
     browser = createScreenshots.browser;
     //assert the titles
   });
-  /** can skip this */
+  /** can skip this? i dont think it'll be the same */
   it('Multi runAllInitAndScreenshots', async function(){
     return true;
     this.timeout(100000);
@@ -248,6 +263,19 @@ describe('create-screenshots.test.mjs - debug', function(){
     // const targetPage = await runPuppeteerWithBrowser(DefaultCoreColors,browser,viewPort);
     await CreateScreenshots.runInitAndScreenshots(createScreenshots,headless)
     //assert the titles
+  });
+  it('saveJSONAfterScreenshot', async function(){
+    this.timeout(100000);
+    const prefix = 'themeM3-#6750A4-#958DA5-#B58392-#939094';
+    assert.ok(prefix);
+    const jsonStringify = {
+      space:0
+    }
+    jsonStringify.space = 0;
+    jsonStringify.space = 2;
+    // await createScreenshots.saveJSONAfterScreenshot(DefaultCoreColors)
+    // await createScreenshots.saveJSONAfterScreenshot(DefaultCoreColors,'themeM3-#6750A4-#958DA5-#B58392-#939094')
+    await createScreenshots.saveJSONAfterScreenshot(DefaultCoreColors,{prefix,jsonStringify})
   });
   after(async function(){
     if(browser.close){

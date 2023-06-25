@@ -7,7 +7,9 @@ import {DefaultCoreColors} from "##/lib/materialDesignThemeColorConstants.mjs";
 import puppeteer from "puppeteer";
 import {runPuppeteerWithBrowser} from "#src/import-material-theme-pup.mjs";
 import {join} from "node:path";
+import {writeFileSync} from "node:fs";
 import {runPuppeteerPage} from "#src/create-screenshots/import-pupp-page.mjs";
+import {generatePuppeteerJSON} from "#src/generate-pupp-json/generate-pupp-json.mjs";
 /**
  * Defaults for CreateScreenshots
  * or use a getter / _defaults
@@ -24,11 +26,11 @@ export const DefaultsCreateScreenshots = function(){
   }
 }();
 export const ThemeBtnSelectorArray = [
-        'body > mio-root > mio-theme-builder > theme-builder',
-        'main > root-page',
-        'main > header > div.row.section.header-right > mwc-icon-button:nth-child(2)',
-        'button'
-      ]
+  'body > mio-root > mio-theme-builder > theme-builder',
+  'main > root-page',
+  'main > header > div.row.section.header-right > mwc-icon-button:nth-child(2)',
+  'button'
+]
 export const ThemeBtnSelectorPuppeteer = ThemeBtnSelectorArray.join('>>>');
 
 export const DefaultViewPort = ViewPort8k;
@@ -94,8 +96,34 @@ export class CreateScreenshots{
     // path = light;
     path = join(this.options.outFolderPath, light);
     await page.screenshot({path,fullPage });
-    return prefix;//filename prefix
+    return {prefix,coreColor:this.coreColor};//filename prefix
   }
+
+  get defaultSaveJSOnAfterScreenshotOptions(){
+    return {prefix:undefined,jsonStringify:{space:0},viewPortStep:undefined}
+  }
+  /**
+   * Assumes passed after createScreenshots.init()
+   * @param coreColor {object}- can technically be generated from coreColor, can be defaulted
+   * @param prefix {string} - can be generated from coreColor... make smarter later
+   * @param options {object} - {viewPortStep:null}
+   * @Example
+   * await createScreenshots.saveJSONAfterScreenshot(coreColor,prefix)
+   * await createScreenshots.saveJSONAfterScreenshot(DefaultCoreColors,'themeM3-#6750A4-#958DA5-#B58392-#939094')
+   */
+  saveJSONAfterScreenshot(coreColor=undefined,options={prefix:undefined,jsonStringify:{space:0},viewPortStep:undefined}){
+    const actual = {...this.defaultSaveJSOnAfterScreenshotOptions,...options}
+    coreColor = coreColor ?? this.coreColor;//this could almost be a static function
+    const prefix = actual.prefix ?? generateScreenshotsFileNames(coreColor).prefix;
+    const outPath = join(this.options.outFolderPath,`${prefix}.json`);
+    const puppJSON = generatePuppeteerJSON(coreColor,actual.viewPortStep,prefix)
+    // writeFileSync(outPath,JSON.stringify(puppJSON,null,2))
+    writeFileSync(outPath,JSON.stringify(puppJSON,null,+actual.jsonStringify.space))
+
+  }
+  // generatePuppeteerJSON(){
+  //
+  // }
 
   /**
    * Changes the page to the coreColor by its index
@@ -115,7 +143,7 @@ export class CreateScreenshots{
    * @param createScreenshots {CreateScreenshots}
    * @param headless {boolean|'new'}
    * @Example
-    * await CreateScreenshots.runInitAndScreenshots(createScreenshots,headless)
+   * await CreateScreenshots.runInitAndScreenshots(createScreenshots,headless)
    * create-screen-shots.test.mjs
    */
   static async runInitAndScreenshots(createScreenshots,headless='new'){
@@ -132,9 +160,8 @@ export class CreateScreenshots{
    */
   static async runInitAndScreenshotsJSON(createScreenshots,headless='new'){
     await createScreenshots.init(headless);
-    await createScreenshots.takeScreenshots();
-
-
+    const {coreColor,prefix} = await createScreenshots.takeScreenshots();
+    createScreenshots.saveJSONAfterScreenshot(coreColor, {prefix})
     //close browser outside...
   }
 
@@ -146,36 +173,57 @@ export class CreateScreenshots{
    * @return {Promise<void>}
    */
   static async runAllInitAndScreenshots(createScreenshots,headless='new'){
+    /* first entry */
     await createScreenshots.init(headless);
     await createScreenshots.takeScreenshots();
-    await createScreenshots.themeToggleBtnEle.click();
+    await createScreenshots.themeToggleBtnEle.click();//revert back to dark theme
 
     createScreenshots.incrementCoreColorIndex();//quick and dirty
     for (let i = 1; i < createScreenshots.coreColors.length; i++) {
       //should probably check screenshot cache here
       await createScreenshots.setPageToColorIndex(i);
       await createScreenshots.takeScreenshots();
-      await createScreenshots.themeToggleBtnEle.click();
+      await createScreenshots.themeToggleBtnEle.click();//might be okay at the start...
 
+      createScreenshots.incrementCoreColorIndex();//quick and dirty. go to next color
+
+    }
+  }
+  static async runAllInitAndScreenshotsJSON(createScreenshots,headless='new'){
+    /* first entry */
+    {
+      await createScreenshots.init(headless);
+      const {coreColor,prefix} = await createScreenshots.takeScreenshots();
+      await createScreenshots.themeToggleBtnEle.click();
+      createScreenshots.saveJSONAfterScreenshot(coreColor, {prefix});
+    }
+
+    createScreenshots.incrementCoreColorIndex();//quick and dirty
+    for (let i = 1; i < createScreenshots.coreColors.length; i++) {
+      //should probably check screenshot cache here
+      await createScreenshots.setPageToColorIndex(i);
+      const {coreColor,prefix} = await createScreenshots.takeScreenshots();
+      await createScreenshots.themeToggleBtnEle.click();
+      createScreenshots.saveJSONAfterScreenshot(coreColor, {prefix});
       createScreenshots.incrementCoreColorIndex();//quick and dirty
 
     }
   }
-
 }
 
 /**
  * Converts the coreColor to a string file name
  * @param coreColor {MaterialThemeCoreColors}
  * @param fileNamePrefix {string}
- * @return {{light: string, dark: string}} - file names
+ * @return {{light: string, dark: string, prefix: string}} - file names
  * @example
  * const inputColor = DefaultCoreColors
  * const {light,dark} = generateScreenshotsFileNames(inputColor)
- * console.log({light,dark});
+ * console.log({light,dark,prefix});
  * // {
  * //   light: 'themeM3-#6750A4-#958DA5-#B58392-#939094.light.png',
  * //   dark: 'themeM3-#6750A4-#958DA5-#B58392-#939094.dark.png'
+ * //   prefix: 'themeM3-#6750A4-#958DA5-#B58392-#939094'
  * // }
  */
 export function generateScreenshotsFileNames(coreColor,fileNamePrefix="themeM3"){

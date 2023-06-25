@@ -14,10 +14,10 @@ import {M3KeyToQueryIndex} from "##/lib/materialDesignThemeColorConstants.mjs";
 /**
  * Tested and works
  * @param hexCoreColors
- * @param viewPorts {SetViewportStep}
+ * @param viewPortStep {SetViewportStep}
  * @return {{title: string, steps: *[]}} - Puppeteer JSON Runner for browser / and replay
  */
-export function generatePuppeteerJSON(hexCoreColors,viewPorts=null,title="import-colors"){
+export function generatePuppeteerJSON(hexCoreColors,viewPortStep=null,title="import-colors"){
   // const title = "import-colors";
   //---
 
@@ -25,7 +25,7 @@ export function generatePuppeteerJSON(hexCoreColors,viewPorts=null,title="import
   const urlTitle = 'Material Design';
   //--
   const steps = [];
-  if(viewPorts)steps.push(new SetViewportStep(viewPorts).toJSON());
+  if(viewPortStep)steps.push(new SetViewportStep(viewPortStep).toJSON());
   steps.push(new NavigationStep(url,urlTitle).toJSON());
 
   let colorIndex,selector,hexValue

@@ -1,4 +1,12 @@
 # Developer Notes
+
+## Export to directory
+* /temp/create-screenshots
+  * move to 
+* [create-screenshots.test.mjs - Main Runner](tests/create-screenshots.test.mjs:90)
+* [lib/MaterialDesignThemeColorsList.mjs:21](lib/MaterialDesignThemeColorsList.mjs:21)
+
+
 ## Outstanding
 1. push to codepen / stackblitz
 2. Send Link
@@ -97,7 +105,11 @@ const viewPorts = {
 ## FFMPEG
 ```bash
 #pwsh
-ffmpeg -i 'pupp_replay_run_2023-06-22 00-42-51.mkv' -codec copy 'pupp_replay_run_2023-06-22 00-42-51.mp4'
+ffmpeg -i 'pupp_replay_run_2023-06-22 00-42-51.mkv' -vcodec copy 'pupp_replay_run_2023-06-22 00-42-51.mp4'
+
+
+
+
 ```
 
 
