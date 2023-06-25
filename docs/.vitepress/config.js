@@ -50,7 +50,7 @@ export default defineConfig({
     ],
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/codeforwings/4material-design-3-import-export-ext' }
+      { icon: 'github', link: 'https://github.com/codeforwings/material-design-3-import-export-ext' }
     ],
     /** @type {import('vitepress/MarkdownOptions')} */
     markdown:{

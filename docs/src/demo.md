@@ -24,7 +24,7 @@ const sampleOutput = {
 3. `Recorder` -> `Import recording` -> `Replay`
 
 <video width="auto" height="auto" controls muted preload="auto">
-  <source src="/puppJsonReplay/material_theme_design_json_2023-06-21 23-57-51.mp4" 
+  <source src="/puppJsonReplay/material_theme_design_json_2023-06-21_23-57-51.mp4" 
     type="video/mp4" alt="Material Theme Import JSON with Puppeteer Windows Chrome">
   Your browser does not support the video tag.
 </video>

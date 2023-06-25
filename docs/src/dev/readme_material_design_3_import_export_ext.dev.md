@@ -3,8 +3,10 @@
 ## Export to directory
 * /temp/create-screenshots
   * move to /docs/src/public/theme-library
-* [create-screenshots.test.mjs - Main Runner](tests/create-screenshots.test.mjs:90)
-* [lib/MaterialDesignThemeColorsList.mjs:21](lib/MaterialDesignThemeColorsList.mjs:21)
+
+[//]: # (todo fix deadlinks)
+[//]: # (* [create-screenshots.test.mjs - Main Runner]&#40;tests/create-screenshots.test.mjs:90&#41;)
+[//]: # (* [lib/MaterialDesignThemeColorsList.mjs:21]&#40;lib/MaterialDesignThemeColorsList.mjs:21&#41;)
 
 
 ## Outstanding
