@@ -64,6 +64,7 @@ this.timeout(500);//500ms
  * @param data will automatically be changed
  */
 import fs from 'node:fs';
+import {encodeURIComponentForVitePress} from "##/dev/vite-press-utils/index.mjs";
 function writeToFile(fileName,data,space=2){
   const sFileName = /\./.test(fileName) ? fileName : fileName + '.json';
   const filePath = `dev/vite-press-utils/logs/${sFileName}`
@@ -149,3 +150,20 @@ docs/src/public/create-shortcuts/themeM3-#6750A4-#958DA5-#B58392-#939094.light.p
   
 
 });
+describe('encodeURIComponentForVitePress',function(){
+  it('most basic',function(){
+    //default theme
+    const baseDirPath = "/create-shortcuts/"
+    const filename = 'themeM3-#6750A4-#958DA5-#B58392-#939094.dark.png'
+    const expected = '/create-shortcuts/themeM3-%236750A4-%23958DA5-%23B58392-%23939094.dark.png'
+    const actual = encodeURIComponentForVitePress(filename,baseDirPath)
+    assert.strictEqual(actual,expected)
+  })
+  it('sample most basic',function(){
+    const baseDirPath = "/create-shortcuts/"
+    const filename = 'themeM3-#CBA642-#8B90A5-#426CBA-#959088.json'
+    const expected = '/create-shortcuts/themeM3-%23CBA642-%238B90A5-%23426CBA-%23959088.json'
+    const actual = encodeURIComponentForVitePress(filename,baseDirPath)
+    assert.strictEqual(actual,expected)
+  })
+})

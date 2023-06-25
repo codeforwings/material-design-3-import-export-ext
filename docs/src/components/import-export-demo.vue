@@ -13,6 +13,7 @@ import {sampleCoreColorsTheme} from "##/lib/materialDesignThemeColorConstants.mj
 import {generateScreenshotsFileNames} from "#src/create-screenshots/generateScreenshotsFileNames";
 // import {generatePuppeteerJSON} from "#src/generate-pupp-json/generate-pupp-json.mjs";
 import {generatePuppeteerJSON} from "##/dist/generate-pupp-json.mjs";
+import CoreColors from "#docs/src/components/utils/coreColors.vue";
 //    rollup "vite:build": "vite build",
 
 
@@ -81,6 +82,8 @@ const downloadEvent = (e)=>{
 <template>
   <div>
 <!--    <input :class="$style.vueinput" v-model="sInput"/>-->
+<!--    adhoc-->
+    <core-colors v-if="!sOutputRaw" :core-colors="oInputRaw"/>
 <!--    fix later-->
     <textarea :class="$style.vueinput" v-model="oInput"/>
   </div>
