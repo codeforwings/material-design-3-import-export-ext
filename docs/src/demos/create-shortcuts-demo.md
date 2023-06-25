@@ -1,6 +1,6 @@
 <script setup>
   // import { ref } from 'vue'
-  import helloWorld from '#docs/src/components/hello-world.vue'
+  import helloWorld from '#docs/hello-world.vue'
   // const count = ref(0)
 </script>
 
@@ -9,6 +9,7 @@
 
 [//]: # (1. have to use vite-press-utils to rename)
 # Demo - Create Shortcuts
+create-screenshots.mjs
 <helloWorld/>
 ## List
 ### Dark
