@@ -11,17 +11,14 @@ https://github.com/codeforwings/material-design-3-import-export-ext/assets/62093
 https://github.com/codeforwings/material-design-3-import-export-ext/assets/6209340/615e3456-6b76-482f-8928-5037c8fcbce5
 
 
-# One Liners
-* [Material Design Theme Builder](https://m3.material.io/theme-builder#/custom?primary=#cba642)
-* Export [README.md](docs%2FREADME.md#export)
+# Export - One Liner
+1. [Material Design Theme Builder](https://m3.material.io/theme-builder#/custom?primary=#cba642)
+2. Open Chrome Console and Copy/Paste the following code
 ```js
-function m3ExtractColorBy(o,e){let t=e.querySelector("body > mio-root > mio-theme-builder > theme-builder").shadowRoot.querySelector("main > root-page > custom-base").shadowRoot.querySelector("main > section.options > article > div:nth-child(2) > core-colors").shadowRoot.querySelector(`section > div.colors > div:nth-child(${o}) > core-color-input`).shadowRoot.querySelector("#root > color-input").shadowRoot.querySelector("div").getAttribute("style");return t.match(/--value: (.+?);/)[1]}const M3KeyToQueryIndex=[{key:"primary",i:1},{key:"secondary",i:2},{key:"tertiary",i:3},{key:"neutral",i:4}],themeColors={};for(const{key:o,i:e}of M3KeyToQueryIndex){let t=m3ExtractColorBy(e,document);themeColors[o]=t}console.log(themeColors);
+{function o(o,e){return e.querySelector("body > mio-root > mio-theme-builder > theme-builder").shadowRoot.querySelector("main > root-page > custom-base").shadowRoot.querySelector("main > section.options > article > div:nth-child(2) > core-colors").shadowRoot.querySelector(`section > div.colors > div:nth-child(${o}) > core-color-input`).shadowRoot.querySelector("#root > color-input").shadowRoot.querySelector("div").getAttribute("style").match(/--value: (.+?);/)[1]}let e=[{key:"primary",i:1},{key:"secondary",i:2},{key:"tertiary",i:3},{key:"neutral",i:4}];var t={};for(let{key:r,i:i}of e){let l=o(i,document);t[r]=l}t;}
 ```
-* Import using puppeteer
-* Only json is supported for import in the browser...
-```js
+* [Export Details](https://codeforwings.github.io/material-design-3-import-export-ext/demo.html#export)
 
-````
 
 ## Background
 This is a simple utility to import and export Material Design 3 color palettes.
@@ -33,14 +30,17 @@ Especially when the builder doesn't allow bookmarking...
 * Using 'puppeteer-core' to automate the process
   * use 'puppeteer' instead to automate the process if you don't want to link to your profile
 
-# Deploy
-* BrowserStack
-  * https://automate.browserstack.com/dashboard/v2/public-build/dWxIUFBMNG9hOFI3ZkFNano4bERUd1dvTGJPTmZBMlViVFp1ZjM3M1NFVlVISmxTcEQ3QzB2bmIrLzBEcGUvSE11dmJSZTRKUy9ZcjM1dkFLUjZRT0E9PS0tdFY4N3VNWmdxcmZwNW9DVmswc0lkdz09--c2a743318608e93d35f686e906d4edefb5ad04d0
-* https://stackblitz.com/
+<!-- todo add back the rest -->
+# Related Links
+* [Related Links](https://codeforwings.github.io/material-design-3-import-export-ext/demo.html#related-links)
+  * BrowserStack
+  <!-- * https://automate.browserstack.com/dashboard/v2/public-build/dWxIUFBMNG9hOFI3ZkFNano4bERUd1dvTGJPTmZBMlViVFp1ZjM3M1NFVlVISmxTcEQ3QzB2bmIrLzBEcGUvSE11dmJSZTRKUy9ZcjM1dkFLUjZRT0E9PS0tdFY4N3VNWmdxcmZwNW9DVmswc0lkdz09--c2a743318608e93d35f686e906d4edefb5ad04d0 -->
+  * Stackblitz
+  <!-- * https://stackblitz.com/ -->
 
 
 
-# Misc. Snippets
+<!-- # Misc. Snippets
 
 ## Copy to clipboard
 ```js
@@ -57,5 +57,5 @@ textarea.select();
 
 // Copy the selected text to the clipboard
 document.execCommand('copy');
-```
+``` -->
 
