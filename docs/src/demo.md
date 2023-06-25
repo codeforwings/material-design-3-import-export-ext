@@ -19,7 +19,7 @@
 
 ## Import - Chrome Recorder JSON
 1. Open Chrome Console
-2. Upload <a target="_blank" href="/puppJsonReplay/import-colors.json" download>import-colors.json</a>
+2. Upload <a target="_blank" href="/puppJsonReplay/import-colors.json" download><span>import-colors.json <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-download downloadIcon"><path d="M21 15v4.5c0 .8-.7 1.5-1.5 1.5h-15c-.8 0-1.5-.7-1.5-1.5V15" /><polyline points="7 10 12 15 17 10" /><line x1="12" y1="15" x2="12" y2="3" /></svg></span></a>
 3. `Recorder` -> `Import recording` -> `Replay`
 
 <video width="auto" height="auto" controls muted preload="auto">
@@ -67,4 +67,3 @@ Related Links
 </video>
 
 [//]: # (should generate the thumbnail video as the dashboard...)
-[//]: # (* [ViewPorts]&#40;/dev/readme_material_design_3_import_export_ext.dev.html#viewports-for-screenshot&#41;)
