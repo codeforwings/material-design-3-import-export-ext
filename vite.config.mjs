@@ -33,7 +33,10 @@ export default defineConfig({
         // resolve('src/import-theme-chrome-pup.mjs'),
         // Ok... cannot use vite to roll it up... just doesnt work
         // resolve('##/lib/pupp-manual-recordings/Recording 6_17_2023 at 3_01_03 PM.js'),
-        resolve('src/generate-pupp-json.mjs'),
+        // resolve('##/src/generate-pupp-json/generate-pupp-json.mjs'),//fixme, this path didnt work?
+        fileURLToPath(new URL('./src/generate-pupp-json/generate-pupp-json.mjs', import.meta.url)),
+        // "C:\\Users\\Jason\\WebstormProjects\\material-design-3-import-export-ext\\src\\generate-pupp-json\\generate-pupp-json.mjs",
+        // resolve('##/src/index.mjs'),
       ]
     },
     rollupOptions: {

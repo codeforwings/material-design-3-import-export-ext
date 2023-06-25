@@ -3,12 +3,17 @@
  * Probably just use this as reference. might be easier than to v-model in and out with props
  * https://vuejs.org/guide/components/props.html
  * http://localhost:5173/material-design-3-import-export-ext/demos/demo-playground.html
+ *
+ * need to rollup...
+ *     "vite:build": "vite build",
  */
 import { ref } from 'vue'
-import { reactive, computed } from 'vue'
+import { computed } from 'vue'
 import {sampleCoreColorsTheme} from "##/lib/materialDesignThemeColorConstants.mjs";
 import {generateScreenshotsFileNames} from "#src/create-screenshots/generateScreenshotsFileNames";
-import {generatePuppeteerJSON} from "#src/generate-pupp-json/generate-pupp-json.mjs";
+// import {generatePuppeteerJSON} from "#src/generate-pupp-json/generate-pupp-json.mjs";
+import {generatePuppeteerJSON} from "##/dist/generate-pupp-json.mjs";
+//    rollup "vite:build": "vite build",
 
 
 // /** @type {MaterialThemeCoreColors} - JSON */
