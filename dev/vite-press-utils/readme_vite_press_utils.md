@@ -1,4 +1,5 @@
 # Vite Press Utils
+* moving to nuxt3-...git
 * currently inside project material-design-3-import-export-ext
 * move me / extract to a separate project
   * probably to nuxt3-win32-posix-path?
